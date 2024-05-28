@@ -16,3 +16,5 @@ https://github.com/shoookawa/storeQuestionnaire
 7.変更の横の＋を押す、メッセージを入力してコミット
 
 8.ブランチをmainに戻す、ブランチ→マージ
+
+9.origin/mainでプッシュ
