@@ -4,6 +4,7 @@
 
 <template>
   <main>
+    <h1>アンケートフォーム</h1>
 
   </main>
 </template>
