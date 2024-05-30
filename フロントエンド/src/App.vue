@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <p>こんにちは世界</p>  
+    <p>こんにちは世界2</p>  
     </main>
 </template>
 
