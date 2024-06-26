@@ -3,7 +3,7 @@
 1.好きなディレクトリを開く
 
 2.以下をクローンする
-https://github.com/shoookawa/storeQuestionnaire
+https://github.com/shoookawa/BoothQuestionnaire
 
 3.チェックアウト先を選択、新しいブランチの作成、「feature/自分の名前（好きなあだ名でも）」
 
