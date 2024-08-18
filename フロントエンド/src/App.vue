@@ -1,36 +1,18 @@
 <script setup>
-  import { ref } from 'vue'
-
-  const currentComponent = ref('SurveyForm');
-  const formData = ref({});
-
-  function hadleGoToConfirm(data){
-    formData.value = data;
-    currentComponent.value = 'SurveyConfirm';
-  }
-  function hadleGoBack(){
-    currentComponent.value = 'SurveyForm';
-  }
-  async function hadleSubmitForm(data){
-    currentComponent.value = 'SurveyComplete';
-    //try{
-      //await axios.post('/', data);
-      //currentComponent.value = 'SurveyComplete';
-    //} catch(error){
-      //console.error('アンケートの送信に失敗しました:', error);
-    //}
-  }
+  import SurveyView from './views/SurveyView.vue';
 </script>
 
 <template>
-  <main>
-    <div id="app">
-      <SurveyHeader />
-      <component :is="currentComponent" :formData="formData" @goToConfirm="hadleGoToConfirm" @goBack="hadleGoBack" @submitForm="hadleSubmitForm" />
-    </div>
-  </main>
+  <div id="app">
+    <SurveyView />
+  </div>
 </template>
 
-<style scoped>
-
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>

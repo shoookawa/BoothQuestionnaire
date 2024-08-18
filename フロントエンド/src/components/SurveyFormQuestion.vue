@@ -36,3 +36,30 @@ watch(answer, (newAnswer) => {
     </span>
   </div>
 </template>
+
+<style scoped>
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+input[type="radio"] {
+  width: auto;
+}
+
+label {
+  margin-left: 8px;
+}
+
+@media (max-width: 600px) {
+  input, textarea, select {
+    font-size: 1em;
+    padding: 8px;
+  }
+}
+</style>
