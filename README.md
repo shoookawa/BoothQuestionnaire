@@ -11,10 +11,12 @@ https://github.com/shoookawa/BoothQuestionnaire
 
 5.ターミナルで、「npm install」実行
 
-6.srcフォルダ内で開発
+6.ターミナルで、「npm install vue-router@next」実行
 
-7.変更の横の＋を押す、メッセージを入力してコミット
+7.srcフォルダ内で開発
 
-8.ブランチをmainに戻す、ブランチ→マージ
+8.変更の横の＋を押す、メッセージを入力してコミット
 
-9.origin/mainでプッシュ
+9.ブランチをmainに戻す、ブランチ→マージ
+
+10.origin/mainでプッシュ
