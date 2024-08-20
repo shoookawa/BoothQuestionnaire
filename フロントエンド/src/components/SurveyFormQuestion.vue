@@ -1,39 +1,112 @@
 <script setup>
 import { ref, defineProps, defineEmits, watch } from 'vue';
 
-const props = defineProps(['question', 'index']);
+// props の定義
+const props = defineProps({
+  question: {
+    type: Object,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true
+  },
+  answer: {
+    type: String,
+    default: '' // デフォルト値を設定
+  }
+});
+
+// emit の定義
 const emit = defineEmits(['putAnswer']);
 
-const answer = ref('')
-watch(answer, (newAnswer) => {
-  emit('putAnswer', {name: props.question.name, value: newAnswer})
-})
+// local state の定義
+const localAnswer = ref(props.answer.value);
+
+// 質問の回答を更新するメソッド
+function updateAnswer(event) {
+  localAnswer.value = event.target.value;
+}
+
+// watch で回答を監視
+watch(localAnswer, (newAnswer) => {
+  emit('putAnswer', { name: props.question.name, value: newAnswer });
+});
+
+console.log(localAnswer.value);
 </script>
 
 <template>
-  <label :for="`question-${index}`">{{ question.label }}</label>
-  <div v-if="question.type === 'text'">
-    <input :id="`question-${index}`" type="text" v-model="answer" :required="question.required"/>
-  </div>
-  <div v-if="question.type === 'email'">
-    <input :id="`question-${index}`" type="email" v-model="answer" :required="question.required"/>
-  </div>
-  <div v-if="question.type === 'textarea'">
-    <textarea :id="`question-${index}`" v-model="answer" :required="question.required"></textarea>
-  </div>
-  <div v-if="question.type === 'number'">
-    <input :id="`question-${index}`" type="number" v-model="answer" :required="question.required" :min="question.min" :max="question.max"/>
-  </div>
-  <div v-if="question.type === 'list'">
-    <select :id="`question-${index}`" v-model="answer" :required="question.required">
-      <option v-for="(option, index) in question.options" :key="index">{{ option }}</option>
-    </select>
-  </div>
-  <div v-if="question.type === 'radio'">
-    <span v-for="(option, index) in question.options" :key="index">
-      <input id="`question-${index}-${option}`" v-model="answer" type="radio" :value="option" :required="question.required">
-      <label for="`question-${index}-${option}`">{{ option }}</label>
-    </span>
+  <div>
+    <label :for="`question-${index}`">{{ question.label }}</label>
+    
+    <!-- 質問タイプごとのフォーム要素 -->
+    <div v-if="question.type === 'text'">
+      <input
+        :id="`question-${index}`"
+        v-model="localAnswer"
+        type="text"
+        :required="question.required"
+        @input="updateAnswer"
+      />
+    </div>
+
+    <div v-if="question.type === 'email'">
+      <input
+        :id="`question-${index}`"
+        v-model="localAnswer"
+        type="email"
+        :required="question.required"
+        @input="updateAnswer"
+      />
+    </div>
+
+    <div v-if="question.type === 'textarea'">
+      <textarea
+        :id="`question-${index}`"
+        v-model="localAnswer"
+        :required="question.required"
+        @input="updateAnswer"
+      ></textarea>
+    </div>
+
+    <div v-if="question.type === 'number'">
+      <input
+        :id="`question-${index}`"
+        v-model="localAnswer"
+        type="number"
+        :required="question.required"
+        :min="question.min"
+        :max="question.max"
+        @input="updateAnswer"
+      />
+    </div>
+
+    <div v-if="question.type === 'list'">
+      <select
+        :id="`question-${index}`"
+        v-model="localAnswer"
+        :required="question.required"
+        @change="updateAnswer"
+      >
+        <option v-for="(option, i) in question.options" :key="i" :value="option">{{ option }}</option>
+      </select>
+    </div>
+
+    <div v-if="question.type === 'radio'" class="radio-group">
+      <div v-for="(option, i) in question.options" :key="i">
+        <input
+          :id="`question-${index}-${option}`"
+          v-model="localAnswer"
+          type="radio"
+          :value="option"
+          :name="`question-${index}`"
+          :required="question.required"
+          @change="updateAnswer"
+        />
+        <label :for="`question-${index}-${option}`">{{ option }}</label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,6 +123,13 @@ input, textarea, select {
 
 input[type="radio"] {
   width: auto;
+  margin-right: 5px; /* ラジオボタンとラベルの間にスペースを追加 */
+}
+
+.radio-group {
+  display: flex; /* 横並びにする */
+  flex-wrap: wrap; /* ラベルが長すぎる場合は折り返す */
+  align-items: center; /* 中央揃え */
 }
 
 label {

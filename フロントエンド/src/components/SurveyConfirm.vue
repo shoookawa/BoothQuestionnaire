@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-// propsでformDataを受け取る
 const props = defineProps({
   formData: {
     type: Object,
@@ -26,7 +25,7 @@ function submitSurvey() {
     <p class="survey-note">以下の内容でよろしければ、送信ボタンを押してください。</p>
     
     <div class="survey-summary">
-      <div v-for="(entry, key) in formData.value" :key="key" class="summary-item">
+      <div v-for="(entry, key) in props.formData" :key="key" class="summary-item">
         <p class="summary-label">{{ entry.label }}</p>
         <p class="summary-value">{{ entry.value }}</p>
       </div>

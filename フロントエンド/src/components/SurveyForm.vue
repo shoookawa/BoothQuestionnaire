@@ -1,41 +1,52 @@
 <script setup>
-import { ref, defineEmits } from 'vue'
-import SurveyFormQustion from "./SurveyFormQuestion.vue"
+import { ref, defineEmits, watch, defineProps } from 'vue'
+import SurveyFormQuestion from './SurveyFormQuestion.vue';
+import questions from '../questions.js';
+
+const props = defineProps({
+  formData: {
+    type: Object,
+    default: () => ({})
+  }
+});
 
 const emit = defineEmits(['goToConfirm']);
 
-const questions = ref([
-  { label: '出店形態', name: 'format', type: 'list', options:['模擬店', '屋外物販', '教室出店', '福島出店'], required: true },
-  { label: '出店番号', name: 'number', type: 'number', required: true, min: 1, max: 100},
-  { label: '満足度', name: 'satisfaction', type: 'radio', options:['非常に満足', 'やや満足', 'どちらともいえない', 'やや不満', '非常に不満'], required: true },
-  { label: '実行委員会の対応の良さ', name: 'support', type: 'radio', options:['非常に満足', 'やや満足', 'どちらともいえない', 'やや不満', '非常に不満'], required: true },
-  { label: '出店募集をどこで知ったか', name: 'publicity', type: 'radio', options:['HP', 'ポスター', 'SNS', 'その他'], required: true },
-  { label: 'ゴミの分別方法について不満があれば記入お願いします', name: 'garbage', type: 'textarea', required: true },
-  { label: '意見・感想', name: 'comment', type: 'textarea', required: true }
-]);
+const formData = ref({ ...props.formData }); // 親から受け取ったデータで初期化
 
-const formData = ref({});
+watch(() => props.formData, (newData) => {
+  formData.value = { ...newData }; // 親からの変更を監視して更新
+}, { deep: true });
 
-function  goToConfirm() {
+function goToConfirm() {
   emit('goToConfirm', formData.value);
 }
 
 function handlePutAnswer({ name, value }) {
-  const question = questions.value.find(q => q.name === name);
-  formData.value[name] = {
-    label: question.label,
-    value: value
-  };
+  const question = questions.find(q => q.name === name);
+  if (question) {
+    formData.value[name] = {
+      label: question.label,
+      value: value
+    };
+  }
 }
-</script>
 
+</script>
 
 <template>
   <div class="survey-container">
     <h1>アンケート入力</h1>
     <p class="survey-note">所要時間は5分、回答可能回数1回のみ</p>
     <form @submit.prevent="goToConfirm">
-      <SurveyFormQustion v-for="(question, index) in questions" :key="index" :question="question" :index="index" @putAnswer="handlePutAnswer"/>
+      <SurveyFormQuestion 
+        v-for="(question, index) in questions" 
+        :key="index" 
+        :question="question" 
+        :index="index" 
+        :answer="formData[question.name]" 
+        @putAnswer="handlePutAnswer"
+      />
       <button type="submit" class="submit-button">確認画面へ</button>
     </form>
   </div>

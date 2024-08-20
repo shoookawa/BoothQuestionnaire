@@ -1,35 +1,40 @@
 <script setup>
-  import { ref } from 'vue';
-  import SurveyForm from '../components/SurveyForm.vue';
-  import SurveyConfirm from '../components/SurveyConfirm.vue';
-  import SurveyComplete from '../components/SurveyComplete.vue';
-    
-  const currentStep = ref('form'); // 現在のステップを管理
-  const formData = ref({}); // フォームデータを管理
-    
-  function showConfirm(data) {
-    formData.value = data; // データを保存
-    currentStep.value = 'confirm'; // 確認画面に移行
-  }
-    
-  function showForm() {
-    currentStep.value = 'form'; // 入力画面に戻る
-  }
-    
-  function submitSurvey(data) {
-    // Axiosでデータをサーバーに送信する処理を追加
-    // axios.post('/api/submit', data).then(() => {
-    //   currentStep.value = 'complete';
-    // });
-    currentStep.value = 'complete'; // 送信完了画面に移行
-  }
+import { ref } from 'vue';
+import SurveyForm from '../components/SurveyForm.vue';
+import SurveyConfirm from '../components/SurveyConfirm.vue';
+import SurveyComplete from '../components/SurveyComplete.vue';
+
+const currentStep = ref('form'); // 現在のステップを管理
+const formData = ref({}); // フォームデータを管理
+
+function showConfirm(data) {
+  formData.value = data; // データを保存
+  currentStep.value = 'confirm'; // 確認画面に移行
+}
+
+function showForm() {
+  currentStep.value = 'form'; // 入力画面に戻る
+}
+
+function submitSurvey(data) {
+  // Axiosでデータをサーバーに送信する処理を追加
+  // axios.post('/api/submit', data).then(() => {
+  //   currentStep.value = 'complete';
+  // });
+  currentStep.value = 'complete'; // 送信完了画面に移行
+}
+
 </script>
 
 <template>
   <h1>2024クローバー祭 出店アンケート</h1>
   <div class="survey-view">
     <!-- アンケート入力画面 -->
-    <SurveyForm v-if="currentStep === 'form'" @goToConfirm="showConfirm" />
+    <SurveyForm 
+      v-if="currentStep === 'form'"
+      :formData="formData"
+      @goToConfirm="showConfirm"
+    />
     
     <!-- 確認画面 -->
     <SurveyConfirm
@@ -45,7 +50,6 @@
     />
   </div>
 </template>
-
 
 <style scoped>
 h1 {

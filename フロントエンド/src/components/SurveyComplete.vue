@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -8,3 +7,14 @@
     <p>アンケートの送信が完了しました。ご協力ありがとうございました。</p>
   </div>
 </template>
+
+<style scoped>
+h1 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 1.2em;
+}
+</style>
