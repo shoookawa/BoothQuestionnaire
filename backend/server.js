@@ -48,6 +48,17 @@ app.post('/api/submit', async (req, res) => {
   }
 });
 
+// アンケート結果を取得するエンドポイント
+app.get('/api/results', async (req, res) => {
+  try {
+    const results = await Survey.find(); // 全てのアンケート結果を取得
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching survey results:', error);
+    res.status(500).send('Error fetching survey results');
+  }
+});
+
 // サーバー起動
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

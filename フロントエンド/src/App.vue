@@ -1,10 +1,6 @@
-<script setup>
-import SurveyView from './views/SurveyView.vue';
-</script>
-
 <template>
   <div id="app">
-    <SurveyView />
+    <router-view />
   </div>
 </template>
 
