@@ -36,6 +36,12 @@ const questions = [
     required: true
   },
   {
+    label: '祭り当日不満に思ったこと',
+    name: 'unsatisfied',
+    type: 'textarea',
+    required: true
+  },
+  {
     label: 'ゴミの分別方法について不満があれば記入お願いします',
     name: 'garbage',
     type: 'textarea',

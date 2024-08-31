@@ -1,22 +1,30 @@
-フロントエンドの開発
+開発方法
 
 1.好きなディレクトリを開く
 
 2.以下をクローンする
 https://github.com/shoookawa/BoothQuestionnaire
 
-3.チェックアウト先を選択、新しいブランチの作成、「feature/自分の名前（好きなあだ名でも）」
+3.ターミナルで、「cd backend」実行
 
-4.ターミナルで、「cd フロントエンド」実行
+4.ターミナルで、「npm install」実行
 
-5.ターミナルで、「npm install」実行
+5.ターミナルで、「npm start」実行
 
-6.ターミナルで、「npm install vue-router@next」実行
+6.新しいターミナルで、「cd フロントエンド」実行
 
-7.srcフォルダ内で開発
+7.ターミナルで、「npm install」実行
 
-8.変更の横の＋を押す、メッセージを入力してコミット
+8.ターミナルで、「npm run dev」実行
 
-9.ブランチをmainに戻す、ブランチ→マージ
+9.srcフォルダ内で開発
 
-10.origin/mainでプッシュ
+10.変更の横の＋を押す、メッセージを入力してコミット
+
+11.origin/mainでプッシュ
+
+
+アンケート内容の変更
+
+・qustion.jsでアンケート内容を変更する
+・server.jsのスキーマの定義を変更する

@@ -26,6 +26,7 @@ const SurveySchema = new mongoose.Schema({
   satisfaction: { type: String, required: true },
   support: { type: String, required: true },
   publicity: { type: String, required: true },
+  unsatisfied: { type: String, required: true},
   garbage: { type: String, required: true },
   comment: { type: String, default: '' }
 });
