@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
 import SurveyForm from '../components/SurveyForm.vue';
 import SurveyConfirm from '../components/SurveyConfirm.vue';
 import SurveyComplete from '../components/SurveyComplete.vue';
@@ -17,11 +18,22 @@ function showForm() {
 }
 
 function submitSurvey(data) {
-  // Axiosでデータをサーバーに送信する処理を追加
-  // axios.post('/api/submit', data).then(() => {
-  //   currentStep.value = 'complete';
-  // });
-  currentStep.value = 'complete'; // 送信完了画面に移行
+  // pureData を作成し、各質問の answer だけを抽出
+  const pureData = {};
+  for (const key in data) {
+    if (data[key] && data[key].answer !== undefined) {
+      pureData[key] = data[key].answer; // answer だけを抽出
+    }
+  }
+
+  axios.post('http://localhost:3000/api/submit', pureData)
+    .then(response => {
+      console.log('Survey data submitted:', response.data);
+      currentStep.value = 'complete'; // 送信完了画面に移行
+    })
+    .catch(error => {
+      console.error('Error submitting survey data:', error);
+    });
 }
 
 </script>

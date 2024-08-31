@@ -21,7 +21,7 @@ const props = defineProps({
 const emit = defineEmits(['putAnswer']);
 
 // local state の定義
-const localAnswer = ref(props.answer.value);
+const localAnswer = ref(props.answer);
 
 // 質問の回答を更新するメソッド
 function updateAnswer(event) {
@@ -30,10 +30,8 @@ function updateAnswer(event) {
 
 // watch で回答を監視
 watch(localAnswer, (newAnswer) => {
-  emit('putAnswer', { name: props.question.name, value: newAnswer });
+  emit('putAnswer', { name: props.question.name, answer: newAnswer });
 });
-
-console.log(localAnswer.value);
 </script>
 
 <template>

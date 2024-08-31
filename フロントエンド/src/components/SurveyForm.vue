@@ -19,19 +19,18 @@ watch(() => props.formData, (newData) => {
 }, { deep: true });
 
 function goToConfirm() {
-  emit('goToConfirm', formData.value);
+  emit('goToConfirm', { ...formData.value }); // formData.valueを渡す
 }
 
-function handlePutAnswer({ name, value }) {
+function handlePutAnswer({ name, answer }) {
   const question = questions.find(q => q.name === name);
   if (question) {
     formData.value[name] = {
       label: question.label,
-      value: value
+      answer: String(answer) // 数値を文字列に変換
     };
   }
 }
-
 </script>
 
 <template>
@@ -44,7 +43,7 @@ function handlePutAnswer({ name, value }) {
         :key="index" 
         :question="question" 
         :index="index" 
-        :answer="formData[question.name]" 
+        :answer="formData[question.name]?.answer || ''"
         @putAnswer="handlePutAnswer"
       />
       <button type="submit" class="submit-button">確認画面へ</button>

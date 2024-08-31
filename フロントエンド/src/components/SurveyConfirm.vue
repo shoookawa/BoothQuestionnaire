@@ -27,7 +27,7 @@ function submitSurvey() {
     <div class="survey-summary">
       <div v-for="(entry, key) in props.formData" :key="key" class="summary-item">
         <p class="summary-label">{{ entry.label }}</p>
-        <p class="summary-value">{{ entry.value }}</p>
+        <p class="summary-value">{{ entry.answer }}</p>
       </div>
     </div>
     
