@@ -35,8 +35,11 @@ function handlePutAnswer({ name, answer }) {
 
 <template>
   <div class="survey-container">
-    <h1>アンケート入力</h1>
-    <p class="survey-note">所要時間は5分、回答可能回数1回のみ</p>
+    <h1>アンケート調査</h1>
+    <p class="survey-note">所要時間は約5分、回答可能回数<span class="colorRed">1回</span>のみ
+      <br>回答可能期間は<span class="colorRed">11月*日</span>まで
+      <br>パスワードは事前にお伝えした*桁の数字</p>
+      <hr>
     <form @submit.prevent="goToConfirm">
       <SurveyFormQuestion 
         v-for="(question, index) in questions" 
@@ -64,6 +67,18 @@ function handlePutAnswer({ name, answer }) {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color:black;
+}
+
+.colorRed{
+  color:red;
+}
+
+hr{
+  border:none;
+    border-top-style:dashed; /*線の種類*/
+    border-top-width:1px;  
+    border-top-color:black;
 }
 
 .survey-note {

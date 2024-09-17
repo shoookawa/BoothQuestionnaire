@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
+import questions from '../questions'; // 質問データをインポート
 
 const props = defineProps({
   formData: {
@@ -25,9 +26,10 @@ function submitSurvey() {
     <p class="survey-note">以下の内容でよろしければ、送信ボタンを押してください。</p>
     
     <div class="survey-summary">
-      <div v-for="(entry, key) in props.formData" :key="key" class="summary-item">
-        <p class="summary-label">{{ entry.label }}</p>
-        <p class="summary-value">{{ entry.answer }}</p>
+      <!-- props.formData を questions の順番に沿って表示する -->
+      <div v-for="(question, index) in questions" :key="index" class="summary-item">
+        <p class="summary-label">{{ question.label }}</p>
+        <p class="summary-value">{{ props.formData[question.name]?.answer }}</p>
       </div>
     </div>
     
@@ -51,6 +53,7 @@ function submitSurvey() {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color:black;
 }
 
 .survey-note {
@@ -75,6 +78,7 @@ h1 {
 
 .summary-value {
   color: #333;
+  margin-bottom: 20px;
 }
 
 .buttons {

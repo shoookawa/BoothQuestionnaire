@@ -39,7 +39,7 @@ function submitSurvey(data) {
 </script>
 
 <template>
-  <h1>2024クローバー祭 出店アンケート</h1>
+  <h1>2024年度クローバー祭 出店アンケート</h1>
   <div class="survey-view">
     <!-- アンケート入力画面 -->
     <SurveyForm 
@@ -67,6 +67,8 @@ function submitSurvey(data) {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color:black;
+
 }
 
 .survey-view {
