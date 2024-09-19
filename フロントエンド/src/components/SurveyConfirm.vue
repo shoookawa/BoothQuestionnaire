@@ -79,6 +79,7 @@ h1 {
 .summary-value {
   color: #333;
   margin-bottom: 20px;
+  word-wrap: break-word;
 }
 
 .buttons {

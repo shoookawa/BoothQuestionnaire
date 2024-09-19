@@ -147,7 +147,8 @@ h2 {
 
 textarea {
   width: 100%;
-  padding: 40px;
+  height: 100px;
+  padding: 10px;
   margin-bottom: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
