@@ -38,12 +38,14 @@ function previousPage() {
   if (currentPage.value > 1) {
     currentPage.value--;
   }
+  window.scrollTo({ top: 0 });
 }
 
 function nextPage() {
   if (currentPage.value < totalPages.value) {
     currentPage.value++;
   }
+  window.scrollTo({ top: 0 });
 }
 </script>
 
