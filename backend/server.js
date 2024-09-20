@@ -32,7 +32,8 @@ const SurveySchema = new mongoose.Schema({
   garbage: { type: String, required: true },
   nextyear: { type: String, required: true },
   reason_nextyear: { type: String, required: false },
-  comment: { type: String, default: '' }
+  comment: { type: String, default: '' },
+  year: { type: Number, required: true }
 });
 
 // モデルの作成

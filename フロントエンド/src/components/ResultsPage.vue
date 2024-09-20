@@ -1,7 +1,9 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, defineProps } from 'vue';
 import axios from 'axios';
 
+
+const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const currentPage = ref(1);
 const resultsPerPage = 9;
@@ -20,7 +22,11 @@ async function fetchResults() {
   }
 }
 
-const totalPages = computed(() => Math.ceil(results.value.length / resultsPerPage));
+const filteredResults = computed(() => {
+  return results.value.filter(result => result.year === props.year);
+});
+
+const totalPages = computed(() => Math.ceil(filteredResults.value.length / resultsPerPage));
 
 const paginatedResults = computed(() => {
   const start = (currentPage.value - 1) * resultsPerPage;
@@ -39,13 +45,12 @@ function nextPage() {
     currentPage.value++;
   }
 }
-
 </script>
 
 <template>
   <div>
     <h1>アンケート結果</h1>
-    <div v-if="results.length" class="results-grid">
+    <div v-if="filteredResults.length" class="results-grid">
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
         <h2>アンケート {{ (currentPage - 1) * resultsPerPage + index + 1 }}</h2>
         <p><strong>出店形態:</strong> {{ result.format }}</p>

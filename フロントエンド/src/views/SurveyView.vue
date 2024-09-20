@@ -27,6 +27,7 @@ function submitSurvey(data) {
       pureData[key] = data[key].answer; // answer だけを抽出
     }
   }
+  pureData['year'] = surveyYear;
 
   axios.post('http://localhost:3000/api/submit', pureData)
     .then(response => {

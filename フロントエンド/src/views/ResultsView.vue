@@ -6,6 +6,9 @@ import ResultsQuestion from '@/components/ResultsQuestion.vue';
 
 const router = useRouter();
 const currentPage = ref('page'); // 現在のページを管理
+const selectedYear = ref(new Date().getFullYear()); // 現在の年度をデフォルトに設定
+const maxYear = ref(new Date().getFullYear());
+
 
 onBeforeMount(() => {
   const authenticated = localStorage.getItem('authenticated');
@@ -34,8 +37,17 @@ function handleQuestion() {
     <button @click="handleLogout">ログアウト</button>
     <button v-if="currentPage === 'page'" @click="handlePage">質問ごと</button>
     <button v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
-    <ResultsPage v-if="currentPage === 'page'" />
-    <ResultsQuestion v-if="currentPage === 'question'" />
+    <label for="year-select">年度を選択:</label>
+    <input
+      type="number"
+      id="year-select"
+      v-model="selectedYear"
+      @change="handleYearChange"
+      min="2024"
+      :max="maxYear"
+    />
+    <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
+    <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
   </div>
 </template>
 

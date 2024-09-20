@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import questions from '@/questions';
 import axios from 'axios';
 
+const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const groupedResults = ref([]); // 質問ごとにグループ化された結果
 
@@ -21,16 +22,15 @@ async function fetchResults() {
 }
 
 function groupResultsByQuestion() {
-  // すべての質問のリスト
+  const filteredResults = results.value.filter(result => result.year === props.year);
+
   const questionKeys = questions.map(q => q.name);
 
-  // 質問ごとに結果をグループ化する処理を実装
-  const grouped = results.value.reduce((acc, result) => {
+  const grouped = filteredResults.reduce((acc, result) => {
     questionKeys.forEach(key => {
       if (!acc[key]) {
         acc[key] = [];
       }
-      // 回答がない場合は '未回答' を挿入
       acc[key].push(result[key] || '未回答');
     });
     return acc;
