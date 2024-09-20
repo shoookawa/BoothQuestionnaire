@@ -72,7 +72,7 @@ h1 {
 }
 
 .survey-view {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
