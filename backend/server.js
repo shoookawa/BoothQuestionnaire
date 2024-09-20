@@ -22,12 +22,16 @@ mongoose.connect(process.env.MONGO_URI, {
 // スキーマの定義
 const SurveySchema = new mongoose.Schema({
   format: { type: String, required: true },
-  number: { type: Number, required: true },
   satisfaction: { type: String, required: true },
+  reason_satisfaction: { type: String, required: false },
   support: { type: String, required: true },
-  publicity: { type: String, required: true },
-  unsatisfied: { type: String, required: true},
+  reason_support: { type: String, required: false },
+  advertisement: { type: String, required: true },
+  other_advertisement: { type: String, required: false },
+  dissatisfaction: { type: String, required: true},
   garbage: { type: String, required: true },
+  nextyear: { type: String, required: true },
+  reason_nextyear: { type: String, required: false },
   comment: { type: String, default: '' }
 });
 

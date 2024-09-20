@@ -28,3 +28,4 @@ https://github.com/shoookawa/BoothQuestionnaire
 
 ・qustion.jsでアンケート内容を変更する
 ・server.jsのスキーマの定義を変更する
+・ResultsPage.vueのアンケート結果部分を変更する

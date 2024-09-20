@@ -49,12 +49,16 @@ function nextPage() {
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
         <h2>アンケート {{ (currentPage - 1) * resultsPerPage + index + 1 }}</h2>
         <p><strong>出店形態:</strong> {{ result.format }}</p>
-        <p><strong>出店番号:</strong> {{ result.number }}</p>
         <p><strong>満足度:</strong> {{ result.satisfaction }}</p>
+        <p><strong>満足度の理由:</strong> {{ result.reason_satisfaction }}</p>
         <p><strong>実行委員会の対応:</strong> {{ result.support }}</p>
-        <p><strong>知った経緯:</strong> {{ result.publicity }}</p>
-        <p><strong>不満:</strong> {{ result.unsatisfied }}</p>
+        <p><strong>対応の理由:</strong> {{ result.reason_support }}</p>
+        <p><strong>知った経緯:</strong> {{ result.advertisement }}</p>
+        <p><strong>その他:</strong> {{ result.other_advertisement }}</p>
+        <p><strong>不満:</strong> {{ result.dissatisfaction }}</p>
         <p><strong>ゴミの分別:</strong> {{ result.garbage }}</p>
+        <p><strong>来年:</strong> {{ result.nextyear }}</p>
+        <p><strong>来年理由:</strong> {{ result.reason_nextyear }}</p>
         <p><strong>意見・感想:</strong> {{ result.comment }}</p>
       </div>
     </div>
@@ -81,7 +85,7 @@ function nextPage() {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-height: 500px; /* 任意の高さを設定 */
+  max-height: 700px; /* 任意の高さを設定 */
   overflow-y: auto;  /* 縦のスクロールバーを表示 */
 }
 

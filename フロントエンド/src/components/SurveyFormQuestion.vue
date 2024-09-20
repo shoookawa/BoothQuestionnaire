@@ -39,8 +39,8 @@ watch(localAnswer, (newAnswer) => {
     <!-- 名前やメールなど相手の情報のセクション -->
     <h2 v-if="question.name === 'format'">団体情報</h2>
 
-    <!-- 満足度セクションの見出し -->
-    <h2 v-if="question.name === 'satisfaction'">満足度に関する質問</h2>
+    <!-- 質問セクションの見出し -->
+    <h2 v-if="question.name === 'satisfaction'">クローバー祭に関する質問</h2>
     
     <label :for="`question-${index}`">{{ question.label }}</label>
     

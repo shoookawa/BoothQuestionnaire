@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import questions from '@/questions';
 import axios from 'axios';
 
 const results = ref([]); // 結果を保存する配列
@@ -33,13 +34,20 @@ function groupResultsByQuestion() {
   
   groupedResults.value = grouped;
 }
+
+// 質問の変数名に対応する質問文を取得する関数
+function getQuestionText(name) {
+  const question = questions.find(q => q.name === name);
+  return question ? question.label : name; // 見つからない場合は変数名をそのまま表示
+}
+
 </script>
 
 <template>
   <div class="results-by-question-container">
     <h1>質問ごとのアンケート結果</h1>
-    <div v-for="(answers, question) in groupedResults" :key="question" class="question-group">
-      <h2>{{ question }}</h2>
+    <div v-for="(answers, questionName) in groupedResults" :key="questionName" class="question-group">
+      <h2>{{ getQuestionText(questionName) }}</h2> <!-- 質問文を表示 -->
       <ul>
         <li v-for="(answer, index) in answers" :key="index">
           {{ answer }}

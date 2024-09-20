@@ -5,12 +5,14 @@ import SurveyForm from '../components/SurveyForm.vue';
 import SurveyConfirm from '../components/SurveyConfirm.vue';
 import SurveyComplete from '../components/SurveyComplete.vue';
 
+const surveyYear = new Date().getFullYear();
 const currentStep = ref('form'); // 現在のステップを管理
 const formData = ref({}); // フォームデータを管理
 
 function showConfirm(data) {
   formData.value = data; // データを保存
   currentStep.value = 'confirm'; // 確認画面に移行
+  window.scrollTo({ top: 0 });
 }
 
 function showForm() {
@@ -39,7 +41,7 @@ function submitSurvey(data) {
 </script>
 
 <template>
-  <h1>2024年度クローバー祭 出店アンケート</h1>
+  <h1>{{ surveyYear }}年度クローバー祭 出店アンケート</h1>
   <div class="survey-view">
     <!-- アンケート入力画面 -->
     <SurveyForm 
