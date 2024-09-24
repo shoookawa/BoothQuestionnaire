@@ -1,8 +1,10 @@
+
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import ResultsPage from '@/components/ResultsPage.vue';
 import ResultsQuestion from '@/components/ResultsQuestion.vue';
+import ResultsRatio from '@/components/ResultsRatio.vue';
 
 const router = useRouter();
 const currentPage = ref('page'); // 現在のページを管理
@@ -23,11 +25,15 @@ function handleLogout() {
 }
 
 function handlePage() {
-  currentPage.value = 'question'
+  currentPage.value = 'page'
 }
 
 function handleQuestion() {
-  currentPage.value = 'page'
+  currentPage.value = 'question'
+}
+
+function handleResultsRatio(){
+  currentPage.value='ratio';
 }
 
 </script>
@@ -35,9 +41,10 @@ function handleQuestion() {
 <template>
   <div class="results-container">
     <button @click="handleLogout">ログアウト</button>
-    <button v-if="currentPage === 'page'" @click="handlePage">質問ごと</button>
-    <button v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
-    <label for="year-select">年度を選択:</label>
+    <button @click="handlePage">質問ごと</button>
+    <button @click="handleQuestion">団体ごと</button>
+    <button @click="handleResultsRatio">割合表示ページへ</button>
+    <br><label for="year-select">年度を選択:</label>
     <input
       type="number"
       id="year-select"
@@ -48,6 +55,7 @@ function handleQuestion() {
     />
     <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
     <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
+    <ResultsRatio v-if="currentPage === 'ratio'" :year="selectedYear" />
   </div>
 </template>
 
