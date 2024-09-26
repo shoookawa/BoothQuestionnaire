@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, defineProps, watch } from 'vue';
+import { ref, onMounted, computed, defineProps } from 'vue';
 import axios from 'axios';
 
 
@@ -10,11 +10,6 @@ const resultsPerPage = 9;
 
 // コンポーネントがマウントされたときに結果を取得
 onMounted(() => {
-  fetchResults();
-});
-
-// 年度が変更されたときに再取得
-watch(() => props.year, () => {
   fetchResults();
 });
 

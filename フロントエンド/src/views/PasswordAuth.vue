@@ -7,7 +7,7 @@ const errorMessage = ref('');
 const router = useRouter();
 const passwordVisible = ref(false);
 
-const correctPassword = import.meta.env.VITE_APP_PASSWORD;
+const correctPassword = "KingGnu2024";
 
 function authenticate() {
   console.log('Attempting authentication with password:', password.value);
