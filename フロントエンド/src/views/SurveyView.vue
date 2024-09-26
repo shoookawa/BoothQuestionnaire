@@ -42,27 +42,29 @@ function submitSurvey(data) {
 </script>
 
 <template>
-  <h1>{{ surveyYear }}年度クローバー祭 出店アンケート</h1>
-  <div class="survey-view">
-    <!-- アンケート入力画面 -->
-    <SurveyForm 
-      v-if="currentStep === 'form'"
-      :formData="formData"
-      @goToConfirm="showConfirm"
-    />
-    
-    <!-- 確認画面 -->
-    <SurveyConfirm
-      v-if="currentStep === 'confirm'"
-      :formData="formData"
-      @goBack="showForm"
-      @submitSurvey="submitSurvey"
-    />
-    
-    <!-- 送信完了画面 -->
-    <SurveyComplete
-      v-if="currentStep === 'complete'"
-    />
+  <div class="full-view">
+    <h1>{{ surveyYear }}年度クローバー祭 出店アンケート</h1>
+    <div class="survey-view">
+      <!-- アンケート入力画面 -->
+      <SurveyForm 
+        v-if="currentStep === 'form'"
+        :formData="formData"
+        @goToConfirm="showConfirm"
+      />
+      
+      <!-- 確認画面 -->
+      <SurveyConfirm
+        v-if="currentStep === 'confirm'"
+        :formData="formData"
+        @goBack="showForm"
+        @submitSurvey="submitSurvey"
+      />
+      
+      <!-- 送信完了画面 -->
+      <SurveyComplete
+        v-if="currentStep === 'complete'"
+      />
+    </div>
   </div>
 </template>
 
@@ -72,6 +74,10 @@ h1 {
   margin-bottom: 20px;
   color:black;
 
+}
+
+.full-view{
+  margin: 60px auto;
 }
 
 .survey-view {

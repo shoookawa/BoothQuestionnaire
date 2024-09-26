@@ -5,8 +5,9 @@ import { useRouter } from 'vue-router';
 const password = ref('');
 const errorMessage = ref('');
 const router = useRouter();
+const passwordVisible = ref(false);
 
-const correctPassword = 'KingGnu2024'; // ここに正しいパスワードを設定
+const correctPassword = import.meta.env.VITE_APP_PASSWORD;
 
 function authenticate() {
   console.log('Attempting authentication with password:', password.value);
@@ -24,6 +25,10 @@ function authenticate() {
   }
 }
 
+function togglePasswordVisibility() {
+  passwordVisible.value = !passwordVisible.value;
+}
+
 </script>
 
 <template>
@@ -31,8 +36,11 @@ function authenticate() {
     <h1>結果ページへのアクセス</h1>
     <form @submit.prevent="authenticate">
       <label for="password">パスワード:</label>
-      <input id="password" v-model="password" type="password" placeholder="パスワードを入力" required />
-      <button type="submit">確認</button>
+      <input id="password" v-model="password" style="margin-left: 10px;" :type="passwordVisible ? 'text' : 'password'" placeholder="パスワードを入力" required />
+      <button type="button" style="margin-left: 10px;" @click="togglePasswordVisibility">
+        {{ passwordVisible ? '非表示' : '表示' }}
+      </button>
+      <button type="submit" style="margin-left: 10px;">ログイン</button>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
   </div>
@@ -40,7 +48,7 @@ function authenticate() {
 
 <style scoped>
 .auth-container {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;

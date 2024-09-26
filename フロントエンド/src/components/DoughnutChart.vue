@@ -40,7 +40,7 @@ function renderChart() {
         labels: props.data.labels,
         datasets: [{
           label: props.title,
-          data: chartData,
+          data: [],
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
         }]
       },
@@ -88,7 +88,6 @@ watch(() => props.data, renderChart);
 
 <template>
   <div class="chart-container">
-    <h3>{{ title }}</h3>
     <canvas ref="canvas"></canvas>
   </div>
 </template>
