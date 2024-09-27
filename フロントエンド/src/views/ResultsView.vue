@@ -9,7 +9,6 @@ const currentPage = ref('page'); // 現在のページを管理
 const selectedYear = ref(new Date().getFullYear()); // 現在の年度をデフォルトに設定
 const maxYear = ref(new Date().getFullYear());
 
-
 onBeforeMount(() => {
   const authenticated = localStorage.getItem('authenticated');
   if (authenticated !== 'true') {
@@ -34,10 +33,12 @@ function handleQuestion() {
 
 <template>
   <div class="results-container">
-    <button @click="handleLogout">ログアウト</button>
-    <button v-if="currentPage === 'page'" @click="handlePage">質問ごと</button>
-    <button v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
-    <br><label for="year-select">年度を選択:</label>
+    <div class="menu">
+      <button class="logout-button" @click="handleLogout">ログアウト</button>
+      <button class="fixed-button" v-if="currentPage === 'page'" @click="handlePage">質問ごと</button> <!-- 質問ごとのボタン -->
+      <button class="fixed-button" v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
+      <br><label class="year-label" for="year-select">年度を選択:</label>
+    </div>
     <input
       type="number"
       id="year-select"
@@ -57,6 +58,40 @@ function handleQuestion() {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.logout-button {
+  position: fixed; /* 絶対位置を指定 */
+  top: 0px; /* 上からの距離 */
+  right: 0px; /* 右からの距離 */
+  padding: 10px 20px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.fixed-button {
+  position: fixed; /* スクロールに固定 */
+  top: 40px; /* 上からの距離を調整 */
+  left: 10px; /* 左からの距離 */
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.menu button {
+  display: block; /* 各ボタンをブロック要素にして縦に並べる */
+  margin-top: 5px; /* ボタン間の余白 */
+}
+
+/* 年度選択のスタイル */
+.year-label {
+  font-size: 18px; /* 文字の大きさを変更 */
+}
+
+#year-select {
+  font-size: 16px; /* 入力フィールドの文字の大きさを変更 */
+  height: 30px; /* 入力フィールドの高さを変更 */
+  padding: 0px; /* 内側の余白を追加 */
 }
 
 h1 {

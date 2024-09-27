@@ -2,11 +2,12 @@
 import { ref, onMounted, computed, defineProps } from 'vue';
 import axios from 'axios';
 
-
 const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const currentPage = ref(1);
 const resultsPerPage = 9;
+const showDetailedCounts = ref(false); // 出店形態別の出店数表示のフラグ
+const showNewButton = ref(false); // 新しいボタンの表示フラグ
 
 // コンポーネントがマウントされたときに結果を取得
 onMounted(() => {
@@ -24,6 +25,37 @@ async function fetchResults() {
 
 const filteredResults = computed(() => {
   return results.value.filter(result => result.year === props.year);
+});
+
+// 出店形態別の集計
+const formatCounts = computed(() => {
+  const counts = {};
+  filteredResults.value.forEach(result => {
+    if (counts[result.format]) {
+      counts[result.format]++;
+    } else {
+      counts[result.format] = 1;
+    }
+  });
+  return counts;
+});
+
+// 合計数を計算するプロパティを追加
+const totalFormatCounts = computed(() => {
+  return Object.values(formatCounts.value).reduce((acc, count) => acc + count, 0);
+});
+
+// 出店形態別の出店数の集計
+const detailedFormatCounts = computed(() => {
+  const counts = {};
+  filteredResults.value.forEach(result => {
+    if (counts[result.format]) {
+      counts[result.format]++;
+    } else {
+      counts[result.format] = 1;
+    }
+  });
+  return counts;
 });
 
 const totalPages = computed(() => Math.ceil(filteredResults.value.length / resultsPerPage));
@@ -47,11 +79,45 @@ function nextPage() {
   }
   window.scrollTo({ top: 0 });
 }
+
+// 詳細ボタンをクリックした時の処理
+function toggleFormatCount() {
+  showNewButton.value = !showNewButton.value; // 新しいボタンの表示をトグル
+}
+
+function clickCount(){
+  showDetailedCounts.value = !showDetailedCounts.value; // 出店数の表示をトグル
+}
 </script>
 
 <template>
   <div>
+    <!-- メニューバー -->
+    <nav class="navbar">
+    </nav>
+
+
+    <!-- 詳細な出店形態別の出店数表示 -->
+    <div v-if="showDetailedCounts" class="detailed-format-counts">
+      <h2>出店形態別の出店数</h2>
+      <ul>
+        <li v-for="(count, format) in detailedFormatCounts" :key="format">
+          {{ format }}: {{ count }}件
+        </li>
+      </ul>
+      <h3>合計: {{ totalFormatCounts }}件</h3> <!-- 合計を表示 -->
+    </div>
+
+    <!-- 詳細ボタン -->
+    <div class="button-wrapper">
+      <button class="fixed-button" @click="toggleFormatCount">詳細</button>
+      <div v-if="showNewButton" class="detailed-buttons">
+        <button class="detailed-button" @click="clickCount">回答回数</button>
+      </div>
+    </div>
+
     <h1>アンケート結果</h1>
+    
     <div v-if="filteredResults.length" class="results-grid">
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
         <h2>アンケート {{ (currentPage - 1) * resultsPerPage + index + 1 }}</h2>
@@ -69,6 +135,7 @@ function nextPage() {
         <p><strong>意見・感想:</strong> {{ result.comment }}</p>
       </div>
     </div>
+
     <div class="pagination-controls">
       <button @click="previousPage" :disabled="currentPage === 1">前のページ</button>
       <button @click="nextPage" :disabled="currentPage >= totalPages">次のページ</button>
@@ -77,6 +144,49 @@ function nextPage() {
 </template>
 
 <style scoped>
+/* メニューバーのスタイル */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%; /* 全幅に変更 */
+  background-color: rgba(255, 255, 255, 0.5); /* 半透明 */
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  z-index: 1000;
+  display: flex;
+  justify-content: start;
+}
+
+.navbar button {
+  background-color: rgba(76, 175, 80, 0.8);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background-color: rgba(69, 160, 73, 0.8);
+}
+
+/* 出店形態別の表示エリア */
+.format-counts {
+  margin-top: 10px; /* ボタンの直下に表示されるように調整 */
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(110, 68, 68, 0.1);
+}
+
+/* 詳細な出店形態別の出店数表示エリア */
+.detailed-format-counts {
+  margin-top: 10px; /* ボタンの直下に表示されるように調整 */
+  background-color: #f1f1f1;
+  padding: 10px;
+  border: 1px solid #7f7d7d;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.089);
+}
 
 .results-grid {
   display: grid;
@@ -95,6 +205,29 @@ function nextPage() {
   max-height: 700px; /* 任意の高さを設定 */
   overflow-y: auto;  /* 縦のスクロールバーを表示 */
 }
+
+.button-wrapper {
+  position: fixed; /* スクロールに固定 */
+  top: 90px; /* 上からの距離 */
+  left: 10px; /* 左からの距離 */
+}
+
+.fixed-button {
+  padding: 10px 36px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.detailed-buttons {
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  margin-top: -5px; /* すべてのボタンの上に空白を開ける */
+}
+
+.detailed-button {
+  margin-top: 0px; /* 各ボタンの間に空白を開ける */
+}
+
 
 h1 {
   text-align: center;
