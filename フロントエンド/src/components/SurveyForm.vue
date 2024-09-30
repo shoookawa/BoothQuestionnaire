@@ -36,7 +36,7 @@ function handlePutAnswer({ name, answer }) {
 <template>
   <div class="survey-container">
     <h1>アンケート調査</h1>
-    <p class="survey-note">クローバー祭に出店していただき、誠にありがとうございました。<br>
+    <p class="survey-note">同志社クローバー祭に出店していただき、誠にありがとうございました。<br>
       さらなるサービスの向上のため、出店団体様にアンケートのご協力をお願いしております。<br>
       所要時間は<span class="colorRed">約10分</span>、回答可能回数<span class="colorRed">1回</span>のみ、
       回答可能期間は<span class="colorRed">11月30日</span>まで</p>

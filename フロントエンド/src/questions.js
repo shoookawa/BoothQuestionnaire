@@ -10,7 +10,7 @@ const questions = [
     label: 'Q1. 総合的な満足度',
     name: 'satisfaction',
     type: 'radio',
-    options: ['非常に満足', 'やや満足', 'どちらともいえない', 'やや不満', '非常に不満'],
+    options: ['とても満足', 'やや満足', 'どちらともいえない', 'やや不満', 'とても不満'],
     required: true
   },
   {
@@ -23,7 +23,7 @@ const questions = [
     label: 'Q3. 実行委員会の対応の良さ',
     name: 'support',
     type: 'radio',
-    options: ['非常に満足', 'やや満足', 'どちらともいえない', 'やや不満', '非常に不満'],
+    options: ['とても満足', 'やや満足', 'どちらともいえない', 'やや不満', 'とても不満'],
     required: true
   },
   {

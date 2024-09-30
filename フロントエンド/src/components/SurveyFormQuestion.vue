@@ -40,7 +40,7 @@ watch(localAnswer, (newAnswer) => {
     <h2 v-if="question.name === 'format'">団体情報</h2>
 
     <!-- 質問セクションの見出し -->
-    <h2 v-if="question.name === 'satisfaction'">クローバー祭に関する質問</h2>
+    <h2 v-if="question.name === 'satisfaction'">同志社クローバー祭に関する質問</h2>
     
     <label :for="`question-${index}`">{{ question.label }}</label>
     
@@ -148,6 +148,8 @@ h2 {
 
 textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 100%;
   height: 100px;
   padding: 10px;
   margin-bottom: 5px;
