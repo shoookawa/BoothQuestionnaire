@@ -92,6 +92,7 @@ watch(localAnswer, (newAnswer) => {
         v-model="localAnswer"
         :required="question.required"
         @change="updateAnswer"
+        class="type-list"
       >
         <option v-for="(option, i) in question.options" :key="i" :value="option">{{ option }}</option>
       </select>
@@ -157,7 +158,7 @@ textarea {
 }
 
 input[type='number'],select {
-  width: 20%; /* 幅を調整 */
+  width: 40%; /* 幅を調整 */
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -170,6 +171,10 @@ input[type='number'],select {
 input[type="radio"] {
   width: auto;
   margin-right: 0px; /* ラジオボタンとラベルの間にスペースを追加 */
+}
+
+.type-list{
+  width:40%;
 }
 
 .radio-group {

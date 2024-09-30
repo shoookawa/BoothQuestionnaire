@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, defineProps, watch} from 'vue';
+import { ref, onMounted,computed, defineProps, watch} from 'vue';
 import questions from '@/questions';
 import axios from 'axios';
 import DoughnutChart from '@/components/DoughnutChart.vue';
@@ -89,12 +89,59 @@ function calculatePercentage(questionId) {
 
   console.log(groupedResults);
 
+const filteredResults = computed(() => {
+return results.value.filter(result => result.year === props.year);
+});
+
+// 出店形態別の集計
+const formatCounts = computed(() => {
+  const counts = {};
+  filteredResults.value.forEach(result => {
+    if (counts[result.format]) {
+      counts[result.format]++;
+    } else {
+      counts[result.format] = 1;
+    }
+  });
+  return counts;
+});
+
+// 合計数を計算するプロパティを追加
+const totalFormatCounts = computed(() => {
+  return Object.values(formatCounts.value).reduce((acc, count) => acc + count, 0);
+});
+
+// 出店形態別の出店数の集計
+const detailedFormatCounts = computed(() => {
+  const counts = {};
+  filteredResults.value.forEach(result => {
+    if (counts[result.format]) {
+      counts[result.format]++;
+    } else {
+      counts[result.format] = 1;
+    }
+  });
+  return counts;
+});
+
 </script>
 
 <template>
   <div class="results-by-question-container">
     <h1>質問ごとのアンケート結果</h1>
+        <!-- 詳細な出店形態別の出店数表示 -->
+        <div class="detailed-format-counts">
+      <h2>出店形態別の回答数</h2>
+      <ul>
+        <li v-for="(count, format) in detailedFormatCounts" :key="format">
+          {{ format }}: {{ count }}件
+        </li>
+      </ul>
+      <h3>合計: {{ totalFormatCounts }}件</h3> <!-- 合計を表示 -->
+    </div>
+
     <div v-for="(answers, questionName) in groupedResults" :key="questionName" class="question-group">
+      <div v-if="questionName!=='format'">
       <h2>{{ getQuestionText(questionName) }}</h2> <!-- 質問文を表示 -->
       <ul v-if="!pieQuestions.includes(questionName)">
         <li v-for="(answer, index) in answers" :key="index">
@@ -110,6 +157,7 @@ function calculatePercentage(questionId) {
             }" 
             :title="getQuestionText(questionName)" 
           />
+          </div>
         </div>
       </div>
     </div>
@@ -147,4 +195,6 @@ li {
   max-height: 500px; /* 任意の高さを設定 */
   overflow-y: auto;  /* 縦のスクロールバーを表示 */
 }
+
+
 </style>

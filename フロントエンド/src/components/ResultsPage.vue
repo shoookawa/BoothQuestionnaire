@@ -6,8 +6,6 @@ const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const currentPage = ref(1);
 const resultsPerPage = 9;
-const showDetailedCounts = ref(false); // 出店形態別の出店数表示のフラグ
-const showNewButton = ref(false); // 新しいボタンの表示フラグ
 
 // コンポーネントがマウントされたときに結果を取得
 onMounted(() => {
@@ -79,41 +77,19 @@ function nextPage() {
   }
   window.scrollTo({ top: 0 });
 }
-
-// 詳細ボタンをクリックした時の処理
-function toggleFormatCount() {
-  showNewButton.value = !showNewButton.value; // 新しいボタンの表示をトグル
-}
-
-function clickCount(){
-  showDetailedCounts.value = !showDetailedCounts.value; // 出店数の表示をトグル
-}
 </script>
 
 <template>
   <div>
-    <!-- メニューバー -->
-    <nav class="navbar">
-    </nav>
-
-
     <!-- 詳細な出店形態別の出店数表示 -->
-    <div v-if="showDetailedCounts" class="detailed-format-counts">
-      <h2>出店形態別の出店数</h2>
+    <div class="detailed-format-counts">
+      <h2>出店形態別の回答数</h2>
       <ul>
         <li v-for="(count, format) in detailedFormatCounts" :key="format">
           {{ format }}: {{ count }}件
         </li>
       </ul>
       <h3>合計: {{ totalFormatCounts }}件</h3> <!-- 合計を表示 -->
-    </div>
-
-    <!-- 詳細ボタン -->
-    <div class="button-wrapper">
-      <button class="fixed-button" @click="toggleFormatCount">詳細</button>
-      <div v-if="showNewButton" class="detailed-buttons">
-        <button class="detailed-button" @click="clickCount">回答回数</button>
-      </div>
     </div>
 
     <h1>アンケート結果</h1>
