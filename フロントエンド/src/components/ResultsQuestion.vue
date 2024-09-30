@@ -65,13 +65,13 @@ function getQuestionText(name) {
 
 // 各質問に対する回答の割合を計算する関数
 function calculatePercentage(questionId) {
-  const total = groupedResults.value[questionId].length;
+  const total = groupedResults.value[questionId]?.length;
   const counts = {};
   const percentages = {};
   const options = questions.find(q => q.name === questionId).options;
   
   // 各選択肢のカウントを行う
-  groupedResults.value[questionId].forEach(result => {
+  groupedResults.value[questionId]?.forEach(result => {
     const answer = result;
     if (answer) {
         counts[answer] = (counts[answer] || 0) + 1; // 回答をカウント

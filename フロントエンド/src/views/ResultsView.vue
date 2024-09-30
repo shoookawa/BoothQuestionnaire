@@ -29,6 +29,23 @@ function handleQuestion() {
   currentPage.value = 'page'
 }
 
+function checkSessionValidity() {
+  const expiryTime = localStorage.getItem('expiryTime');
+  const now = new Date().getTime();
+  
+  if (!expiryTime || now > expiryTime) {
+    console.log('Session expired');
+    localStorage.removeItem('authenticated');
+    localStorage.removeItem('expiryTime');
+    router.push('/auth');
+  } else {
+    console.log('Session is still valid');
+  }
+}
+
+// ページ読み込み時にセッションが有効か確認
+checkSessionValidity();
+
 </script>
 
 <template>

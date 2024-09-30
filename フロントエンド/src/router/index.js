@@ -38,9 +38,5 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-window.addEventListener('beforeunload', () => {
-  localStorage.removeItem('authenticated');
-});
-
 
 export default router;

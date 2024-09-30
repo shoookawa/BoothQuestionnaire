@@ -8,12 +8,19 @@ const router = useRouter();
 const passwordVisible = ref(false);
 
 const correctPassword = "KingGnu2024";
+const SESSION_DURATION = 2 * 60 * 60 * 1000; // 2時間をミリ秒に変換
 
 function authenticate() {
   console.log('Attempting authentication with password:', password.value);
   if (password.value === correctPassword) {
     console.log('Authentication successful');
+
+    const now = new Date().getTime(); // 現在の時間を取得
+    const expiryTime = now + SESSION_DURATION; // 有効期限の設定
+
     localStorage.setItem('authenticated', 'true');
+    localStorage.setItem('expiryTime', expiryTime); // 有効期限を保存
+
     router.push('/admin-results').then(() => {
       console.log('Redirection successful');
     }).catch(err => {
