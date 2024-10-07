@@ -81,19 +81,7 @@ function nextPage() {
 
 <template>
   <div>
-    <!-- 詳細な出店形態別の出店数表示 -->
-    <div class="detailed-format-counts">
-      <h2>出店形態別の回答数</h2>
-      <ul>
-        <li v-for="(count, format) in detailedFormatCounts" :key="format">
-          {{ format }}: {{ count }}件
-        </li>
-      </ul>
-      <h3>合計: {{ totalFormatCounts }}件</h3> <!-- 合計を表示 -->
-    </div>
-
-    <h1>アンケート結果</h1>
-    
+    <h1>アンケート結果</h1>  
     <div v-if="filteredResults.length" class="results-grid">
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
         <h2>アンケート {{ (currentPage - 1) * resultsPerPage + index + 1 }}</h2>
@@ -104,8 +92,10 @@ function nextPage() {
         <p><strong>対応の理由:</strong> {{ result.reason_support }}</p>
         <p><strong>知った経緯:</strong> {{ result.advertisement }}</p>
         <p><strong>その他:</strong> {{ result.other_advertisement }}</p>
+        <p><strong>きっかけ:</strong> {{ result.opportunity }}</p>
         <p><strong>不満:</strong> {{ result.dissatisfaction }}</p>
         <p><strong>ゴミの分別:</strong> {{ result.garbage }}</p>
+        <p><strong>売上金額:</strong> {{ result.amount }}</p>
         <p><strong>来年:</strong> {{ result.nextyear }}</p>
         <p><strong>来年理由:</strong> {{ result.reason_nextyear }}</p>
         <p><strong>意見・感想:</strong> {{ result.comment }}</p>

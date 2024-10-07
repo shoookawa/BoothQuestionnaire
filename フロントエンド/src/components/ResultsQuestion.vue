@@ -7,7 +7,7 @@ import DoughnutChart from '@/components/DoughnutChart.vue';
 const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const groupedResults = ref([]); // 質問ごとにグループ化された結果
-const pieQuestions = ['satisfaction', 'support', 'advertisement', 'nextyear'];  //割合を表示する質問のname
+const pieQuestions = ['satisfaction', 'support', 'advertisement','amount', 'nextyear'];  //割合を表示する質問のname
 
 onMounted(() => {
   fetchResults();

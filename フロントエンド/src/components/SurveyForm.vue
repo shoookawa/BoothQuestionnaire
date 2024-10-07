@@ -39,7 +39,9 @@ function handlePutAnswer({ name, answer }) {
     <p class="survey-note">同志社クローバー祭に出店していただき、誠にありがとうございました。<br>
       さらなるサービスの向上のため、出店団体様にアンケートのご協力をお願いしております。<br>
       所要時間は<span class="colorRed">約10分</span>、回答可能回数<span class="colorRed">1回</span>のみ、
-      回答可能期間は<span class="colorRed">11月30日</span>まで</p>
+      回答可能期間は<span class="colorRed">11月30日</span>まで<br>
+      <span class="colorRed">*</span> は回答必須です。
+    </p>
       <hr>
     <form @submit.prevent="goToConfirm">
       <SurveyFormQuestion 

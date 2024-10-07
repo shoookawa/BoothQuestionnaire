@@ -42,7 +42,7 @@ watch(localAnswer, (newAnswer) => {
     <!-- 質問セクションの見出し -->
     <h2 v-if="question.name === 'satisfaction'">同志社クローバー祭に関する質問</h2>
     
-    <label :for="`question-${index}`">{{ question.label }}</label>
+    <label :for="`question-${index}`">{{ question.label }}<span v-if="question.required" class="colorRed"> *</span></label>
     
     <!-- 質問タイプごとのフォーム要素 -->
     <div v-if="question.type === 'text'">
@@ -122,6 +122,10 @@ watch(localAnswer, (newAnswer) => {
 
 .no-margin {
   margin-bottom: 0; /* 余白をゼロに設定 */
+}
+
+.colorRed{
+  color:red;
 }
 
 h2.format {
