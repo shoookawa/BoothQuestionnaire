@@ -6,54 +6,34 @@ const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const currentPage = ref(1);
 const resultsPerPage = 9;
+const errorMessage = ref('');
 
 // コンポーネントがマウントされたときに結果を取得
-onMounted(() => {
-  fetchResults();
+onMounted(async () => {
+  await fetchResults();
 });
 
 async function fetchResults() {
   try {
-    const response = await axios.get('http://localhost:3000/api/results');
-    results.value = response.data;
+    const response = await axios.get('https://cloverfes.com/booth_questionnaire/results.php');
+    if (Array.isArray(response.data)) {
+      results.value = response.data;
+    } else {
+      console.error('Unexpected data format:', response.data);
+      results.value = []; // フォールバック
+    }
+    errorMessage.value = ''; // エラーメッセージをリセット
   } catch (error) {
     console.error('Error fetching results:', error);
+    errorMessage.value = '結果の取得に失敗しました。'; // エラーメッセージを設定
   }
 }
 
 const filteredResults = computed(() => {
-  return results.value.filter(result => result.year === props.year);
-});
-
-// 出店形態別の集計
-const formatCounts = computed(() => {
-  const counts = {};
-  filteredResults.value.forEach(result => {
-    if (counts[result.format]) {
-      counts[result.format]++;
-    } else {
-      counts[result.format] = 1;
-    }
+  const resultsArray = results.value.filter(result => {
+    return result.year.toString() === props.year.toString();
   });
-  return counts;
-});
-
-// 合計数を計算するプロパティを追加
-const totalFormatCounts = computed(() => {
-  return Object.values(formatCounts.value).reduce((acc, count) => acc + count, 0);
-});
-
-// 出店形態別の出店数の集計
-const detailedFormatCounts = computed(() => {
-  const counts = {};
-  filteredResults.value.forEach(result => {
-    if (counts[result.format]) {
-      counts[result.format]++;
-    } else {
-      counts[result.format] = 1;
-    }
-  });
-  return counts;
+  return resultsArray;
 });
 
 const totalPages = computed(() => Math.ceil(filteredResults.value.length / resultsPerPage));
@@ -61,7 +41,7 @@ const totalPages = computed(() => Math.ceil(filteredResults.value.length / resul
 const paginatedResults = computed(() => {
   const start = (currentPage.value - 1) * resultsPerPage;
   const end = start + resultsPerPage;
-  return results.value.slice(start, end);
+  return filteredResults.value.slice(start, end);
 });
 
 function previousPage() {
@@ -82,6 +62,7 @@ function nextPage() {
 <template>
   <div>
     <h1>アンケート結果</h1>  
+    <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     <div v-if="filteredResults.length" class="results-grid">
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
         <h2>アンケート {{ (currentPage - 1) * resultsPerPage + index + 1 }}</h2>
@@ -110,6 +91,12 @@ function nextPage() {
 </template>
 
 <style scoped>
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+
 /* メニューバーのスタイル */
 .navbar {
   position: fixed;

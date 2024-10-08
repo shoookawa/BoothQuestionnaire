@@ -10,6 +10,7 @@ const currentStep = ref('form'); // 現在のステップを管理
 const formData = ref({}); // フォームデータを管理
 
 onMounted(() => {
+  console.log("surveyView mounted");
   const submitted = localStorage.getItem('formSubmitted');
   if (submitted === 'true') {
     // 既に送信済みなら、フォーム送信完了ページにリダイレクト
@@ -37,7 +38,11 @@ function submitSurvey(data) {
   }
   pureData['year'] = surveyYear;
 
-  axios.post('http://localhost:3000/api/submit', pureData)
+  axios.post('https://cloverfes.com/booth_questionnaire/submit.php', pureData, {
+    headers: {
+        'Content-Type': 'application/json' // ヘッダーを設定
+    }
+  })
     .then(response => {
       console.log('Survey data submitted:', response.data);
       // フォーム送信完了後、localStorageにフラグを保存
