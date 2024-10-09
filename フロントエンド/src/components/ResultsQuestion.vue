@@ -122,6 +122,8 @@ const detailedFormatCounts = computed(() => {
       counts[result.format] = 1;
     }
   });
+  
+  console.log(groupedResults.value);
   return counts;
 });
 
@@ -147,7 +149,8 @@ const detailedFormatCounts = computed(() => {
       <h2>{{ getQuestionText(questionName) }}</h2> <!-- 質問文を表示 -->
       <ul v-if="!pieQuestions.includes(questionName)">
         <li v-for="(answer, index) in answers" :key="index">
-          {{ answer }}
+          <p v-if="answer != '未回答'">{{ answer }}</p>
+          <p v-if="answer == '未回答'" class="answer-null">{{ answer }}</p>
         </li>
       </ul>
       <div v-if="pieQuestions.includes(questionName)">
@@ -189,6 +192,10 @@ const detailedFormatCounts = computed(() => {
 
 .question-group h2 {
   margin-bottom: 10px;
+}
+
+.answer-null{
+  color: #a3a1a1;
 }
 
 h2 {

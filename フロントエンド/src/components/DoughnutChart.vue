@@ -64,7 +64,7 @@ function renderChart() {
       datasets: [{
         label: props.title,
         data: chartData,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#e949a1', '#82bbf8ce', '#e0eb19', '#aaeb74'],
       }]
     },
     options:{
