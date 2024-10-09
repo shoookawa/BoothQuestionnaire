@@ -1,6 +1,18 @@
+同志社クローバー祭　出店アンケート
+
+2024年から運用開始
+
+アンケート回答ページ（https://cloverfes.com/booth_questionnaire/）出店団体用
+
+アンケート確認ページ（https://cloverfes.com/booth_questionnaire/admin-results）クロ実用
+
+
 ブランチ
+
 ・main：本番環境
+
 ・production：本番開発環境
+
 ・local：ローカル開発環境（同期されていない）
 
 開発方法(本番環境ブランチproduction)
@@ -36,12 +48,18 @@ https://github.com/shoookawa/BoothQuestionnaire
 
 
 アンケート内容の変更
+
 ・qustion.jsでアンケート内容を変更する
+
 ・submit.jsのスキーマの定義を変更する
+
 ・ResultsPage.vueのアンケート結果部分を変更する
+
 ・xserverのデータベース（ サーバ： mysql804b.xserver.jp データベース: doclover13_boothquestion テーブル: booth_questionnaire）のテーブルのスキーマを変更
 
+
 デプロイ方法
+
 1.新しいターミナルで、「cd フロントエンド」実行
 
 2.ターミナルで、「npm run build」実行
