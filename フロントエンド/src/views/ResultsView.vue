@@ -49,86 +49,129 @@ checkSessionValidity();
 </script>
 
 <template>
-  <div class="results-container">
-    <h1>アンケート結果</h1>
-    <div class="menu">
-      <button class="logout-button" @click="handleLogout">ログアウト</button>
-      <button class="fixed-button" v-if="currentPage === 'page'" @click="handlePage">質問ごと</button> <!-- 質問ごとのボタン -->
-      <button class="fixed-button" v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
-      <label class="year-label" for="year-select">年度を選択:</label>
-      <input
-      type="number"
-      id="year-select"
-      v-model="selectedYear"
-      @change="handleYearChange"
-      min="2024"
-      :max="maxYear"
-      onkeydown="return false;"
-      />
-    </div>
-    <div class="results-view">
-
-      <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
-      <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
+  <div>
+    <header>
+      <div class="header-left">
+        <button class="category-button" v-if="currentPage === 'page'" @click="handlePage">質問ごと</button> <!-- 質問ごとのボタン -->
+        <button class="category-button" v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
+        <div class="year-container">
+          <label class="year-label" for="year-select">年度を選択</label>
+          <input
+          type="number"
+          id="year-select"
+          v-model="selectedYear"
+          @change="handleYearChange"
+          min="2024"
+          :max="maxYear"
+          onkeydown="return false;"
+          />
+        </div>
+      </div>
+      <div class="header-center">
+        <h1>アンケート結果</h1>
+      </div>
+      <div class="header-right">
+        <button class="logout-button" @click="handleLogout">ログアウト</button>
+      </div>
+    </header>
+    <div class="results-container">
+      <div class="results-view">
+        <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
+        <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.results-view {
-  max-width: 100%;
-  margin: 10px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  justify-content: flex-start;
+  min-width: 260px;
+}
+
+.category-button {
+  padding: 10px 20px;
+  margin-right: 10px; /* ボタンを少し内側に */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.year-container{
+  margin-left: 20px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 年度選択のスタイル */
+.year-label {
+  font-size: 18px; /* 文字の大きさを変更 */
+}
+
+#year-select {
+  font-size: 16px; /* 入力フィールドの文字の大きさを変更 */
+  height: 30px; /* 入力フィールドの高さを変更 */
+  padding: 0px;
+}
+
+.header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header h1 {
+  text-align: center;
+  margin: 0px;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 260px;
+  margin-right: 40px;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .results-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  margin-top: 100px;
 }
 
-.logout-button {
-  position: fixed; /* 絶対位置を指定 */
-  top: 40px; /* 上からの距離 */
-  right: 0px; /* 右からの距離 */
-  padding: 10px 20px;
-  font-size: 14px;
-  cursor: pointer;
+.results-view {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* アンケート結果を中央揃えに */
 }
 
-.fixed-button {
-  position: fixed; /* スクロールに固定 */
-  top: 40px; /* 上からの距離を調整 */
-  left: 10px; /* 左からの距離 */
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.menu button {
-  display: block; /* 各ボタンをブロック要素にして縦に並べる */
-  margin-top: 5px; /* ボタン間の余白 */
-}
-
-/* 年度選択のスタイル */
-.year-label {
-  font-size: 18px; /* 文字の大きさを変更 */
-  margin-right: 10px;
-}
-
-#year-select {
-  font-size: 16px; /* 入力フィールドの文字の大きさを変更 */
-  height: 30px; /* 入力フィールドの高さを変更 */
-  padding: 0px; /* 内側の余白を追加 */
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 button {
   display: inline-block;
@@ -141,5 +184,35 @@ button {
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column; /* 小さい画面でヘッダーの要素を縦に並べる */
+    padding: 10px;
+  }
+
+  .header-left,
+  .header-right {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .results-container {
+    padding: 10px;
+    margin-top: 150px;
+  }
+
+  .category-button,
+  .logout-button {
+    font-size: 14px; /* ボタンの文字サイズを小さく */
+    padding: 8px 12px;
+  }
+
+  #year-select {
+    font-size: 14px;
+    height: 25px;
+  }
 }
 </style>

@@ -5,7 +5,7 @@ import axios from 'axios';
 const props = defineProps(['year']);
 const results = ref([]); // 結果を保存する配列
 const currentPage = ref(1);
-const resultsPerPage = 9;
+const resultsPerPage = 12;
 const errorMessage = ref('');
 
 // コンポーネントがマウントされたときに結果を取得
@@ -60,7 +60,7 @@ function nextPage() {
 </script>
 
 <template>
-  <div class="results-container">
+  <div class="page-container">
     <h2>団体ごと</h2>  
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     <div v-if="filteredResults.length" class="results-grid">
@@ -91,7 +91,7 @@ function nextPage() {
 </template>
 
 <style scoped>
-.results-container {
+.page-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -129,24 +129,6 @@ function nextPage() {
 
 .navbar button:hover {
   background-color: rgba(69, 160, 73, 0.8);
-}
-
-/* 出店形態別の表示エリア */
-.format-counts {
-  margin-top: 10px; /* ボタンの直下に表示されるように調整 */
-  background-color: #ffffff;
-  padding: 15px;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(110, 68, 68, 0.1);
-}
-
-/* 詳細な出店形態別の出店数表示エリア */
-.detailed-format-counts {
-  margin-top: 10px; /* ボタンの直下に表示されるように調整 */
-  background-color: #f1f1f1;
-  padding: 10px;
-  border: 1px solid #7f7d7d;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.089);
 }
 
 .results-grid {
