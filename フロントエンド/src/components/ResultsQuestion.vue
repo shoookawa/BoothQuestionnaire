@@ -129,7 +129,7 @@ const detailedFormatCounts = computed(() => {
 
 <template>
   <div class="results-by-question-container">
-    <h1>質問ごとのアンケート結果</h1>
+    <h2>質問ごと</h2>
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         <!-- 詳細な出店形態別の出店数表示 -->
         <div class="detailed-format-counts">
@@ -177,6 +177,10 @@ const detailedFormatCounts = computed(() => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .question-group {
@@ -185,6 +189,12 @@ const detailedFormatCounts = computed(() => {
 
 .question-group h2 {
   margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8em;
 }
 
 ul {

@@ -10,40 +10,34 @@
 
 ・main：本番環境
 
-・production：本番開発環境
+・develop：本番開発環境
 
 ・local：ローカル開発環境（同期されていない）
 
-開発方法(本番環境ブランチproduction)
+開発方法(本番環境ブランチdevelop)
 
 1.好きなディレクトリを開く
 
 2.以下をクローンする
 https://github.com/shoookawa/BoothQuestionnaire
 
-3.ブランチをproductionに変更
+3.ブランチをdevelopに変更
 
-4.ターミナルで、「cd backend」実行
+4.新しいターミナルで、「cd フロントエンド」実行
 
 5.ターミナルで、「npm install」実行
 
-6.ターミナルで、「npm start」実行
+6.ターミナルで、「npm run dev」実行
 
-7.新しいターミナルで、「cd フロントエンド」実行
+7.srcフォルダ内で開発
 
-8.ターミナルで、「npm install」実行
+8.backendはxserver内にデプロイされている「submit.php」「results.php」を変更
 
-9.ターミナルで、「npm run dev」実行
+9.変更の横の＋を押す、メッセージを入力してコミットl
 
-10.srcフォルダ内で開発
+10.プッシュ
 
-11.backendはxserver内にデプロイされている「submit.php」「results.php」を変更
-
-12.変更の横の＋を押す、メッセージを入力してコミット
-
-13.プッシュ
-
-14.問題なければ、mainにマージ
+11.問題なければ、mainにマージ
 
 アンケート内容の変更
 

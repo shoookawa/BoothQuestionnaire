@@ -40,7 +40,7 @@ function togglePasswordVisibility() {
 
 <template>
   <div class="auth-container">
-    <h1>結果ページへのアクセス</h1>
+    <h1>アンケート結果ページ<br>ログイン</h1>
     <form @submit.prevent="authenticate">
       <label for="password">パスワード:</label>
       <input id="password" v-model="password" style="margin-left: 10px;" :type="passwordVisible ? 'text' : 'password'" placeholder="パスワードを入力" required />

@@ -60,8 +60,8 @@ function nextPage() {
 </script>
 
 <template>
-  <div>
-    <h1>アンケート結果</h1>  
+  <div class="results-container">
+    <h2>団体ごと</h2>  
     <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     <div v-if="filteredResults.length" class="results-grid">
       <div v-for="(result, index) in paginatedResults" :key="index" class="result-card">
@@ -91,6 +91,14 @@ function nextPage() {
 </template>
 
 <style scoped>
+.results-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 .error-message {
   color: red;
   text-align: center;
@@ -182,9 +190,10 @@ function nextPage() {
 }
 
 
-h1 {
+h2 {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 1.8em;
 }
 
 button {

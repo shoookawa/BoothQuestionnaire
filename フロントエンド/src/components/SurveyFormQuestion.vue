@@ -136,7 +136,7 @@ h2.format {
 h2 {
   margin-top: 30px;
   margin-bottom: 15px;
-  font-size: 1.2em;
+  font-size: 1.0em;
   color: #333;
   border-bottom: 2px solid #007bff; /* セクションを区切る線 */
   padding-bottom: 5px;

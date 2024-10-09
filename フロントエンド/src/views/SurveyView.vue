@@ -11,7 +11,7 @@ const formData = ref({}); // フォームデータを管理
 
 onMounted(() => {
   console.log("surveyView mounted");
-  const submitted = localStorage.getItem('formSubmitted');
+  const submitted = localStorage.getItem('formSubmitted' + surveyYear);
   if (submitted === 'true') {
     // 既に送信済みなら、フォーム送信完了ページにリダイレクト
     currentStep.value = 'complete';
@@ -46,11 +46,12 @@ function submitSurvey(data) {
     .then(response => {
       console.log('Survey data submitted:', response.data);
       // フォーム送信完了後、localStorageにフラグを保存
-      localStorage.setItem('formSubmitted', 'true');
+      localStorage.setItem('formSubmitted' + surveyYear, 'true');
       currentStep.value = 'complete'; // 送信完了画面に移行
     })
     .catch(error => {
       console.error('Error submitting survey data:', error);
+      currentStep.value = 'confirm';
     });
 }
 
@@ -58,7 +59,7 @@ function submitSurvey(data) {
 
 <template>
   <div class="full-view">
-    <h1>{{ surveyYear }}年度同志社クローバー祭 出店アンケート</h1>
+    <h1>{{ surveyYear }}年度同志社クローバー祭</h1><h1>出店アンケート</h1>
     <div class="survey-view">
       <!-- アンケート入力画面 -->
       <SurveyForm 

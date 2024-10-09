@@ -30,6 +30,7 @@ function submitSurvey() {
       <div v-for="(question, index) in questions" :key="index" class="summary-item">
         <p class="summary-label">{{ question.label }}</p>
         <p class="summary-value">{{ props.formData[question.name]?.answer }}</p>
+        <p class="summary-value-null" v-if="props.formData[question.name] == null">未回答</p>
       </div>
     </div>
     
@@ -41,8 +42,9 @@ function submitSurvey() {
 </template>
 
 <style scoped>
+
 .survey-confirm-container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -69,6 +71,8 @@ h1 {
 
 .summary-item {
   margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 .summary-label {
@@ -78,6 +82,12 @@ h1 {
 
 .summary-value {
   color: #333;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+}
+
+.summary-value-null {
+  color: #a3a1a1;
   margin-bottom: 20px;
   word-wrap: break-word;
 }

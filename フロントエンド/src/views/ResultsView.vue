@@ -50,13 +50,13 @@ checkSessionValidity();
 
 <template>
   <div class="results-container">
+    <h1>アンケート結果</h1>
     <div class="menu">
       <button class="logout-button" @click="handleLogout">ログアウト</button>
       <button class="fixed-button" v-if="currentPage === 'page'" @click="handlePage">質問ごと</button> <!-- 質問ごとのボタン -->
       <button class="fixed-button" v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
-      <br><label class="year-label" for="year-select">年度を選択:</label>
-    </div>
-    <input
+      <label class="year-label" for="year-select">年度を選択:</label>
+      <input
       type="number"
       id="year-select"
       v-model="selectedYear"
@@ -64,25 +64,38 @@ checkSessionValidity();
       min="2024"
       :max="maxYear"
       onkeydown="return false;"
-    />
-    <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
-    <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
+      />
+    </div>
+    <div class="results-view">
+
+      <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
+      <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.results-view {
+  max-width: 100%;
+  margin: 10px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .results-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
 .logout-button {
   position: fixed; /* 絶対位置を指定 */
-  top: 0px; /* 上からの距離 */
+  top: 40px; /* 上からの距離 */
   right: 0px; /* 右からの距離 */
   padding: 10px 20px;
-  font-size: 10px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -103,6 +116,7 @@ checkSessionValidity();
 /* 年度選択のスタイル */
 .year-label {
   font-size: 18px; /* 文字の大きさを変更 */
+  margin-right: 10px;
 }
 
 #year-select {
