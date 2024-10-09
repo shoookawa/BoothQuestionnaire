@@ -2,9 +2,11 @@
 
 2024年から運用開始
 
-アンケート回答ページ（https://cloverfes.com/booth_questionnaire/）出店団体用
+アンケート回答ページ https://cloverfes.com/booth_questionnaire/
+出店団体用
 
-アンケート確認ページ（https://cloverfes.com/booth_questionnaire/admin-results）クロ実用
+アンケート確認ページ https://cloverfes.com/booth_questionnaire/admin-result 
+クロ実用
 
 ブランチ
 
