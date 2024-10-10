@@ -51,7 +51,10 @@ checkSessionValidity();
 <template>
   <div>
     <header>
-      <div class="header-left">
+      <div class="header-center">
+        <h1>アンケート結果</h1>
+      </div>
+      <div class="header-right">
         <button class="category-button" v-if="currentPage === 'page'" @click="handlePage">質問ごと</button> <!-- 質問ごとのボタン -->
         <button class="category-button" v-if="currentPage === 'question'" @click="handleQuestion">団体ごと</button>
         <div class="year-container">
@@ -66,11 +69,6 @@ checkSessionValidity();
           onkeydown="return false;"
           />
         </div>
-      </div>
-      <div class="header-center">
-        <h1>アンケート結果</h1>
-      </div>
-      <div class="header-right">
         <button class="logout-button" @click="handleLogout">ログアウト</button>
       </div>
     </header>
@@ -128,13 +126,13 @@ header {
   font-size: 16px; /* 入力フィールドの文字の大きさを変更 */
   height: 30px; /* 入力フィールドの高さを変更 */
   padding: 0px;
+  text-align: center;
 }
 
 .header-center {
-  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  margin-left: 60px;
 }
 
 header h1 {
@@ -146,13 +144,14 @@ header h1 {
   display: flex;
   justify-content: flex-end;
   min-width: 260px;
-  margin-right: 40px;
+  margin-right: 90px;
 }
 
 .logout-button {
   padding: 10px 20px;
   font-size: 14px;
   cursor: pointer;
+  margin-left: 30px;
 }
 
 .results-container {
@@ -187,16 +186,26 @@ button:disabled {
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   header {
     flex-direction: column; /* 小さい画面でヘッダーの要素を縦に並べる */
     padding: 10px;
   }
 
-  .header-left,
+  .header-left{
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
   .header-right {
     justify-content: center;
     margin-bottom: 10px;
+    margin-right: 10px;
+  }
+
+  .header-center{
+    margin-left: 0px;
+    margin-right: 24px;
   }
 
   .results-container {

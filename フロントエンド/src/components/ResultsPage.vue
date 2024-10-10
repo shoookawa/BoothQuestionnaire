@@ -133,8 +133,21 @@ function nextPage() {
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1200px) {
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr); /* 1200px以下の時に2列表示 */
+  }
+}
+
+@media (max-width: 800px) {
+  .results-grid {
+    grid-template-columns: repeat(1, 1fr); /* 800px以下の時に1列表示 */
+  }
 }
 
 .result-card {
@@ -147,6 +160,7 @@ function nextPage() {
   overflow-wrap: break-word;
   max-height: 700px; /* 任意の高さを設定 */
   overflow-y: auto;  /* 縦のスクロールバーを表示 */
+  flex: 1 1 100%;
 }
 
 .button-wrapper {
