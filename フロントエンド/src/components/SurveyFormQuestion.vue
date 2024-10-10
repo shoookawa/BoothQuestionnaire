@@ -14,6 +14,10 @@ const props = defineProps({
   answer: {
     type: String,
     default: '' // デフォルト値を設定
+  },
+  hasError:{
+    type: Boolean,
+    default: false
   }
 });
 
@@ -30,12 +34,13 @@ function updateAnswer(event) {
 
 // watch で回答を監視
 watch(localAnswer, (newAnswer) => {
-  emit('putAnswer', { name: props.question.name, answer: newAnswer });
+  emit('putAnswer', { index: props.index, answer: newAnswer }); // indexを渡す
 });
+console.log(props.hasError);
 </script>
 
 <template>
-  <div :class="['question-container', (question.name === 'format' || question.name === 'number') ? 'no-margin' : '']">
+  <div :class="(question.name === 'format' || question.name === 'number') ? 'no-margin' : ''">
     <!-- 名前やメールなど相手の情報のセクション -->
     <h2 v-if="question.name === 'format'">団体情報</h2>
 
@@ -50,7 +55,7 @@ watch(localAnswer, (newAnswer) => {
         :id="`question-${index}`"
         v-model="localAnswer"
         type="text"
-        :required="question.required"
+        :class="{ 'error': hasError }"
         @input="updateAnswer"
       />
     </div>
@@ -60,7 +65,7 @@ watch(localAnswer, (newAnswer) => {
         :id="`question-${index}`"
         v-model="localAnswer"
         type="email"
-        :required="question.required"
+        :class="{ 'error': hasError }"
         @input="updateAnswer"
       />
     </div>
@@ -69,7 +74,7 @@ watch(localAnswer, (newAnswer) => {
       <textarea
         :id="`question-${index}`"
         v-model="localAnswer"
-        :required="question.required"
+        :class="{ 'error': props.hasError }"
         @input="updateAnswer"
       ></textarea>
     </div>
@@ -79,9 +84,9 @@ watch(localAnswer, (newAnswer) => {
         :id="`question-${index}`"
         v-model="localAnswer"
         type="number"
-        :required="question.required"
         :min="question.min"
         :max="question.max"
+        :class="{ 'error': hasError }"
         @input="updateAnswer"
       />
     </div>
@@ -90,15 +95,15 @@ watch(localAnswer, (newAnswer) => {
       <select
         :id="`question-${index}`"
         v-model="localAnswer"
-        :required="question.required"
         @change="updateAnswer"
+        :class="{ 'error': hasError }"
         class="type-list"
       >
         <option v-for="(option, i) in question.options" :key="i" :value="option">{{ option }}</option>
       </select>
     </div>
 
-    <div v-if="question.type === 'radio'" class="radio-group">
+    <div v-if="question.type === 'radio'" class="radio-group" :class="{ 'error': hasError }">
       <div v-for="(option, i) in question.options" :key="i">
         <input
           :id="`question-${index}-${option}`"
@@ -106,7 +111,6 @@ watch(localAnswer, (newAnswer) => {
           type="radio"
           :value="option"
           :name="`question-${index}`"
-          :required="question.required"
           @change="updateAnswer"
         />
         <label :for="`question-${index}-${option}`">{{ option }}</label>
@@ -116,12 +120,18 @@ watch(localAnswer, (newAnswer) => {
 </template>
 
 <style scoped>
-.question-container {
-  margin-bottom: 30px; /* 各質問の間にデフォルトの余白を追加 */
-}
 
 .no-margin {
   margin-bottom: 0; /* 余白をゼロに設定 */
+}
+
+.error {
+  border: 1px solid red; /* エラー時のボーダーを赤に */
+}
+
+.radio-group.error {
+  border: 1px solid red; /* ラジオボタングループのエラー時のボーダー */
+  padding: 5px; /* パディングを追加してラベルを囲む */
 }
 
 .colorRed{
@@ -129,12 +139,11 @@ watch(localAnswer, (newAnswer) => {
 }
 
 h2.format {
+  margin-top: 30px;
   margin-bottom: 0; /* 団体情報のセクションには余白をなくす */
 }
 
-
 h2 {
-  margin-top: 30px;
   margin-bottom: 15px;
   font-size: 1.0em;
   color: #333;

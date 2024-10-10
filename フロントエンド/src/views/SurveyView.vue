@@ -4,13 +4,21 @@ import axios from 'axios';
 import SurveyForm from '../components/SurveyForm.vue';
 import SurveyConfirm from '../components/SurveyConfirm.vue';
 import SurveyComplete from '../components/SurveyComplete.vue';
+import SurveyDeadline from '../components/SurveyDeadline.vue';
+import availableDate from '../deadline.js';
 
 const surveyYear = new Date().getFullYear();
+const todayMonth = new Date().getMonth() + 1;
+const todayDate = new Date().getDate();
 const currentStep = ref('form'); // 現在のステップを管理
 const formData = ref({}); // フォームデータを管理
 
 onMounted(() => {
   console.log("surveyView mounted");
+  if(todayMonth < availableDate.startMonth || todayMonth > availableDate.endMonth || todayDate < availableDate.startDate || todayDate > availableDate.endDate){
+    currentStep.value = 'deadline'
+    return;
+  }
   const submitted = localStorage.getItem('formSubmitted' + surveyYear);
   if (submitted === 'true') {
     // 既に送信済みなら、フォーム送信完了ページにリダイレクト
@@ -79,6 +87,11 @@ function submitSurvey(data) {
       <!-- 送信完了画面 -->
       <SurveyComplete
         v-if="currentStep === 'complete'"
+      />
+
+      <!-- 送信完了画面 -->
+      <SurveyDeadline
+        v-if="currentStep === 'deadline'"
       />
     </div>
   </div>

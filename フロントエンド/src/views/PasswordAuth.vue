@@ -1,34 +1,42 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 const password = ref('');
 const errorMessage = ref('');
 const router = useRouter();
 const passwordVisible = ref(false);
 
-const correctPassword = "KingGnu2024";
 const SESSION_DURATION = 2 * 60 * 60 * 1000; // 2時間をミリ秒に変換
 
-function authenticate() {
+async function authenticate() {
   console.log('Attempting authentication with password:', password.value);
-  if (password.value === correctPassword) {
-    console.log('Authentication successful');
-
-    const now = new Date().getTime(); // 現在の時間を取得
-    const expiryTime = now + SESSION_DURATION; // 有効期限の設定
-
-    localStorage.setItem('authenticated', 'true');
-    localStorage.setItem('expiryTime', expiryTime); // 有効期限を保存
-
-    router.push('/admin-results').then(() => {
-      console.log('Redirection successful');
-    }).catch(err => {
-      console.log('Redirection failed', err);
+  try {
+    const response = await axios.post('https://cloverfes.com/booth_questionnaire/password.php', {
+      password: password.value // 入力されたパスワードを送信
     });
-  } else {
-    console.log('Authentication failed');
-    errorMessage.value = 'パスワードが間違っています。';
+    if (response.data.status === 'success') {
+      console.log('Authentication successful');
+
+      const now = new Date().getTime(); // 現在の時間を取得
+      const expiryTime = now + SESSION_DURATION; // 有効期限の設定
+
+      localStorage.setItem('authenticated', 'true');
+      localStorage.setItem('expiryTime', expiryTime); // 有効期限を保存
+
+      router.push('/admin-results').then(() => {
+        console.log('Redirection successful');
+      }).catch(err => {
+        console.log('Redirection failed', err);
+      });
+    } else {
+      console.log('Authentication failed');
+      errorMessage.value = response.data.message || 'パスワードが間違っています。';
+    }
+  }catch (error) {
+    console.error('Error during authentication:', error);
+    errorMessage.value = '認証中にエラーが発生しました。';
   }
 }
 

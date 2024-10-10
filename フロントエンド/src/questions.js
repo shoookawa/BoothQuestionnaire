@@ -36,7 +36,7 @@ const questions = [
     label: 'Q5. 出店募集をどこで知りましたか',
     name: 'advertisement',
     type: 'radio',
-    options: ['HP', 'ポスター', 'SNS', 'その他'],
+    options: ['HP', '学内ポスター', '京田辺市の掲示板', 'SNS', 'その他'],
     required: true
   },
   {
