@@ -34,7 +34,7 @@ async function authenticate() {
       console.log('Authentication failed');
       errorMessage.value = response.data.message || 'パスワードが間違っています。';
     }
-  }catch (error) {
+  } catch (error) {
     console.error('Error during authentication:', error);
     errorMessage.value = '認証中にエラーが発生しました。';
   }
@@ -43,37 +43,120 @@ async function authenticate() {
 function togglePasswordVisibility() {
   passwordVisible.value = !passwordVisible.value;
 }
-
 </script>
 
 <template>
   <div class="auth-container">
-    <h1>アンケート結果ページ<br>ログイン</h1>
-    <form @submit.prevent="authenticate">
-      <label for="password">パスワード:</label>
-      <input id="password" v-model="password" style="margin-left: 10px;" :type="passwordVisible ? 'text' : 'password'" placeholder="パスワードを入力" required />
-      <button type="button" style="margin-left: 10px;" @click="togglePasswordVisibility">
-        {{ passwordVisible ? '非表示' : '表示' }}
-      </button>
-      <button type="submit" style="margin-left: 10px;">ログイン</button>
-    </form>
-    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <div class="auth-box">
+      <h1>アンケート結果ページ<br>ログイン</h1>
+      <form @submit.prevent="authenticate">
+        <div class="form-group">
+          <label for="password">パスワード:</label>
+          <div class="pass-group">
+            <input id="password" v-model="password" :type="passwordVisible ? 'text' : 'password'" placeholder="パスワードを入力" required />
+            <button type="button" @click="togglePasswordVisibility">
+              {{ passwordVisible ? '非表示' : '表示' }}
+            </button>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="submit" class="submit-btn">ログイン</button>
+        </div>
+      </form>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .auth-container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.auth-box {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
   text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.pass-group {
+  display: flex;
+  width: 100%;
+  align-items: center; /* これで垂直中央揃えに */
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 20%;
+  text-align: center;
+  margin-left: 5px; /* 少しスペースを追加 */
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #28a745;
+  border-radius: 4px;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
 }
 
 .error {
   color: red;
-}
-
-input {
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>

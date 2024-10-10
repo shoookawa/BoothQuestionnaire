@@ -200,12 +200,12 @@ button:disabled {
   .header-right {
     justify-content: center;
     margin-bottom: 10px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   .header-center{
     margin-left: 0px;
-    margin-right: 24px;
+    margin-right: 22px;
   }
 
   .results-container {
