@@ -51,7 +51,7 @@ function togglePasswordVisibility() {
       <h1>アンケート結果ページ<br>ログイン</h1>
       <form @submit.prevent="authenticate">
         <div class="form-group">
-          <label for="password">パスワード:</label>
+          <label for="password">パスワード</label>
           <div class="pass-group">
             <input id="password" v-model="password" :type="passwordVisible ? 'text' : 'password'" placeholder="パスワードを入力" required />
             <button type="button" @click="togglePasswordVisibility">
@@ -158,5 +158,13 @@ button:hover {
 .error {
   color: red;
   margin-top: 20px;
+}
+@media (max-width: 440px) {
+  input{
+    width: 70%;
+  }
+  button{
+    width: 30%;
+  }
 }
 </style>
