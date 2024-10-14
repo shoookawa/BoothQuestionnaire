@@ -148,9 +148,8 @@ const detailedFormatCounts = computed(() => {
       <div v-if="questionName!=='format'">
       <h2>{{ getQuestionText(questionName) }}</h2> <!-- 質問文を表示 -->
       <ul v-if="!pieQuestions.includes(questionName)" class="results-grid">
-        <li v-for="(answer, index) in answers" :key="index" class="result-card">
-          <p v-if="answer != '未回答'" class="answer-notnull">{{ answer }}</p>
-          <p v-if="answer == '未回答'" class="answer-null">{{ answer }}</p>
+        <li v-for="(answer, index) in answers.filter(answer => answer != '未回答')" :key="index" class="result-card">
+          <p class="answer-notnull">{{ answer }}</p>
         </li>
       </ul>
       <div v-if="pieQuestions.includes(questionName)">
