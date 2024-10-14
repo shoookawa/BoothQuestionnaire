@@ -23,8 +23,7 @@ function submitSurvey() {
 <template>
   <div class="survey-confirm-container">
     <h1>アンケート内容の確認</h1>
-    <p class="survey-note">以下の内容でよろしければ、送信ボタンを押してください。</p>
-    
+    <p class="survey-note">以下の内容でよろしければ、<br class="note-br">送信ボタンを押してください。</p>
     <div class="survey-summary">
       <!-- props.formData を questions の順番に沿って表示する -->
       <div v-for="(question, index) in questions" :key="index" class="summary-item">
@@ -73,6 +72,7 @@ h1 {
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  padding: 0px 10px;
 }
 
 .summary-label {
@@ -123,7 +123,14 @@ h1 {
   background-color: #0056b3;
 }
 
+.note-br{
+  display: none;
+}
+
 @media (max-width: 600px) {
+  .note-br{
+    display: block;
+  }
   .survey-confirm-container {
     padding: 10px;
   }

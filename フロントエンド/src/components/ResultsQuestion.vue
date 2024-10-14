@@ -136,9 +136,9 @@ const detailedFormatCounts = computed(() => {
         <!-- 詳細な出店形態別の出店数表示 -->
         <div class="detailed-format-counts">
       <h2>出店形態別の回答数</h2>
-      <ul>
-        <li v-for="(count, format) in detailedFormatCounts" :key="format">
-          {{ format }}: {{ count }}件
+      <ul class="results-grid">
+        <li v-for="(count, format) in detailedFormatCounts" :key="format" class="result-card">
+          <p class="answer-notnull">{{ format }}: {{ count }}件</p>
         </li>
       </ul>
       <h3>合計: {{ totalFormatCounts }}件</h3> <!-- 合計を表示 -->
@@ -147,9 +147,9 @@ const detailedFormatCounts = computed(() => {
     <div v-for="(answers, questionName) in groupedResults" :key="questionName" class="question-group">
       <div v-if="questionName!=='format'">
       <h2>{{ getQuestionText(questionName) }}</h2> <!-- 質問文を表示 -->
-      <ul v-if="!pieQuestions.includes(questionName)">
-        <li v-for="(answer, index) in answers" :key="index">
-          <p v-if="answer != '未回答'">{{ answer }}</p>
+      <ul v-if="!pieQuestions.includes(questionName)" class="results-grid">
+        <li v-for="(answer, index) in answers" :key="index" class="result-card">
+          <p v-if="answer != '未回答'" class="answer-notnull">{{ answer }}</p>
           <p v-if="answer == '未回答'" class="answer-null">{{ answer }}</p>
         </li>
       </ul>
@@ -175,7 +175,18 @@ const detailedFormatCounts = computed(() => {
   text-align: center;
   margin-top: 20px;
 }
-
+.result-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: 200px; /* 任意の高さを設定 */
+  overflow-y: auto;  /* 縦のスクロールバーを表示 */
+  flex: 1 1 100%;
+}
 .results-by-question-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -194,8 +205,12 @@ const detailedFormatCounts = computed(() => {
   margin-bottom: 10px;
 }
 
+.answer-notnull{
+  font-size: 1em;
+}
 .answer-null{
   color: #a3a1a1;
+  font-size: 1em;
 }
 
 h2 {
@@ -221,5 +236,17 @@ li {
   overflow-y: auto;  /* 縦のスクロールバーを表示 */
 }
 
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
+@media (max-width: 800px) {
+  .results-grid {
+    grid-template-columns: repeat(1, 1fr); /* 800px以下の時に1列表示 */
+  }
+}
 </style>

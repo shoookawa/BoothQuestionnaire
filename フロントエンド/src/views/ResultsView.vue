@@ -46,6 +46,8 @@ function checkSessionValidity() {
 // ページ読み込み時にセッションが有効か確認
 checkSessionValidity();
 
+
+
 </script>
 
 <template>
@@ -222,6 +224,9 @@ button:disabled {
   #year-select {
     font-size: 14px;
     height: 25px;
+  }
+  .results-view {
+    padding: 0px;
   }
 }
 </style>

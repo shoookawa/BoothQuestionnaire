@@ -88,12 +88,11 @@ function handlePutAnswer({ index, answer }) {
 <template>
   <div class="survey-container">
     <h1>アンケート調査</h1>
-    <p class="survey-note">同志社クローバー祭に出店していただき、誠にありがとうございました。<br>
-      さらなるサービスの向上のため、出店団体様にアンケートのご協力をお願いしております。<br>
-      所要時間は<span class="colorRed">約10分</span>、回答可能回数<span class="colorRed">1回</span>のみ、
-      回答可能期間は<span class="colorRed">{{availableDate.endMonth}}月{{availableDate.endDate}}日</span>まで<br>
-      <span class="colorRed">*</span> は回答必須です。
-    </p>
+    <p class="survey-note">同志社クローバー祭に出店していただき、<br class="br-note">誠にありがとうございました。</p>
+    <p class="survey-note">さらなるサービスの向上のため、<br class="br-note">出店団体様にアンケートのご協力を<br class="br-note-2">お願いしております。</p>
+    <p class="survey-note">所要時間は<span class="colorRed">約10分</span>、回答可能回数<span class="colorRed">1回</span>のみ、<br class="br-note">
+      回答可能期間は<span class="colorRed">{{availableDate.endMonth}}月{{availableDate.endDate}}日</span>まで</p>
+    <p><span class="colorRed">*</span> は回答必須です。</p>
       <hr>
       <form @submit.prevent="goToConfirm">
         <div v-for="(question, index) in questions" :key="index" class="question-container">
@@ -143,10 +142,9 @@ hr{
 }
 
 .survey-note {
-  margin-bottom: 20px;
   color: #333;
   font-size: 1em;
-  line-height: 1.5;
+  line-height: 120%;
 }
 
 form {
@@ -176,7 +174,20 @@ form {
   display: block;
 }
 
+.br-note{
+  display: none;
+}
+
+.br-note-2{
+  display: none;
+}
+
 /* レスポンシブデザイン */
+@media (max-width: 800px) {
+  .br-note{
+    display: block;
+  }
+}
 @media (max-width: 600px) {
   .survey-container {
     padding: 10px;
@@ -193,6 +204,11 @@ form {
   .submit-button {
     font-size: 1em;
     padding: 12px;
+  }
+}
+@media (max-width: 400px) {
+  .br-note-2{
+    display: block;
   }
 }
 </style>
