@@ -79,6 +79,8 @@ checkSessionValidity();
         <ResultsPage v-if="currentPage === 'page'" :year="selectedYear" />
         <ResultsQuestion v-if="currentPage === 'question'" :year="selectedYear" />
       </div>
+      <p class="dev-name">@Sho Hiroki</p>
+      <p class="dev-name">since 2024</p>
     </div>
   </div>
 </template>
@@ -185,6 +187,13 @@ button {
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.dev-name{
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(201, 196, 196);
+  margin: 5px;
 }
 
 /* レスポンシブ対応 */
