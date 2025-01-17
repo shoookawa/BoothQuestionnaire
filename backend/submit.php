@@ -22,7 +22,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // データを挿入
 try {
-    $stmt = $pdo->prepare("INSERT INTO booth_questionnaire (format, satisfaction, reason_satisfaction, support, reason_support, advertisement, other_advertisement, opportunity, dissatisfaction, garbage, amount, nextyear, reason_nextyear, comment, year) VALUES (:format, :satisfaction, :reason_satisfaction, :support, :reason_support, :advertisement, :other_advertisement, :opportunity, :dissatisfaction, :garbage, :amount, :nextyear, :reason_nextyear, :comment, :year)");
+    $stmt = $pdo->prepare("INSERT INTO booth_questionnaire (format, satisfaction, reason_satisfaction, support, reason_support, advertisement, other_advertisement, opportunity, dissatisfaction, garbage, amount, nextyear, reason_nextyear, comment, year) VALUES (:format, :satisfaction, :reason_satisfaction, :support, :reason_support, :advertisement, :other_advertisement, :opportunity, :dissatisfaction, :garbage, :amount, :nextyear, :reason_nextyear, :comment, :year)");  //2個のカッコ内の内容はqestions.jsの質問のnameと合わせる。（最後はyear）
     
     $stmt->execute([
         ':format' => $data['format'],
@@ -40,7 +40,7 @@ try {
         ':reason_nextyear' => $data['reason_nextyear'],
         ':comment' => $data['comment'],
         ':year' => $data['year']
-    ]);
+    ]);  //ここもqestions.jsの質問のnameと合わせる。（最後はyear）
     
     echo json_encode(['status' => 'success']);
 } catch (PDOException $e) {

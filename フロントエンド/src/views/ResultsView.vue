@@ -68,7 +68,6 @@ checkSessionValidity();
           @change="handleYearChange"
           min="2024"
           :max="maxYear"
-          onkeydown="return false;"
           />
         </div>
         <button class="logout-button" @click="handleLogout">ログアウト</button>
